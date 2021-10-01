@@ -7,7 +7,7 @@ const INITIAL_STATE = {
 
 const userLoginReducer = (state = INITIAL_STATE, action) => {
     switch (action.type) {
-        case UserActionTypes.USER_LOGIN:
+        case UserActionTypes.User:
             return {
                 ...state,
             }
