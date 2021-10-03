@@ -1,4 +1,7 @@
 import React from "react";
+import { useDispatch } from "react-redux";
+import { LinkContainer } from "react-router-bootstrap";
+import { logout } from "../../redux/user/user.actions";
 import classNames from "classnames";
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
@@ -21,6 +24,8 @@ const useStyles = makeStyles(styles);
 
 export default function AdminNavbarLinks() {
   const classes = useStyles();
+  const dispatch = useDispatch();
+
   const [openProfile, setOpenProfile] = React.useState(null);
   const handleClickProfile = (event) => {
     if (openProfile && openProfile.contains(event.target)) {
@@ -72,24 +77,23 @@ export default function AdminNavbarLinks() {
               <Paper>
                 <ClickAwayListener onClickAway={handleCloseProfile}>
                   <MenuList role="menu">
-                    <MenuItem
-                      onClick={handleCloseProfile}
-                      className={classes.dropdownItem}
-                    >
-                      Profile
-                    </MenuItem>
-                    <MenuItem
-                      onClick={handleCloseProfile}
-                      className={classes.dropdownItem}
-                    >
-                      Settings
-                    </MenuItem>
+                    <LinkContainer to="/admin/user-profile">
+                      <MenuItem
+                        onClick={handleCloseProfile}
+                        className={classes.dropdownItem}
+                      >
+                        Mi perfíl
+                      </MenuItem>
+                    </LinkContainer>
+
                     <Divider light />
                     <MenuItem
-                      onClick={handleCloseProfile}
                       className={classes.dropdownItem}
+                      onClick={() => {
+                        dispatch(logout());
+                      }}
                     >
-                      Logout
+                      Salir del Sistema
                     </MenuItem>
                   </MenuList>
                 </ClickAwayListener>
