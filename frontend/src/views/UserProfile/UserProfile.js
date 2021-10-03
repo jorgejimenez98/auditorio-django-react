@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
+import { Fade } from "react-awesome-reveal";
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 // core components
@@ -43,7 +44,7 @@ export default function UserProfile({ history }) {
   }, [history, userInfo]);
 
   return (
-    <div>
+    <Fade bottom duration={1000} distance="40px">
       <GridContainer>
         <GridItem xs={12} sm={12} md={12}>
           <Card>
@@ -121,6 +122,6 @@ export default function UserProfile({ history }) {
           </Card>
         </GridItem>
       </GridContainer>
-    </div>
+    </Fade>
   );
 }

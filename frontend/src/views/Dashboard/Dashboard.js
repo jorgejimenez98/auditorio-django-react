@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
+import { Fade } from "react-awesome-reveal";
 // react plugin for creating charts
 import ChartistGraph from "react-chartist";
 // @material-ui/core
@@ -46,7 +47,7 @@ export default function Dashboard({ history }) {
   }, [history, userInfo]);
 
   return (
-    <div>
+    <Fade bottom duration={1000} distance="40px">
       <GridContainer>
         <GridItem xs={12} sm={6} md={3}>
           <Card>
@@ -197,6 +198,6 @@ export default function Dashboard({ history }) {
           </Card>
         </GridItem>
       </GridContainer>
-    </div>
+    </Fade>
   );
 }
