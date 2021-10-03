@@ -74,7 +74,7 @@ export default function UserProfile({ history }) {
                 </GridItem>
               </GridContainer>
               <div className="text-center mt-2">
-                <Button color="secondary">Confirmar Edición</Button>
+                <Button color="success">Confirmar Edición</Button>
               </div>
             </CardBody>
           </Card>
@@ -116,7 +116,7 @@ export default function UserProfile({ history }) {
                 </GridItem>
               </GridContainer>
               <div className="text-center mt-2">
-                <Button color="secondary">Confirmar nueva Contraseña</Button>
+                <Button color="success">Confirmar nueva Contraseña</Button>
               </div>
             </CardBody>
           </Card>
