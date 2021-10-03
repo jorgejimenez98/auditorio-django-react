@@ -9,12 +9,12 @@ import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
 
 import store from "./redux/store";
-import App from "./App";
+import Admin from './layouts/Admin'
 
 ReactDOM.render(
   <Provider store={store}>
     <BrowserRouter>
-      <App />
+      <Admin />
     </BrowserRouter>
   </Provider>,
   document.getElementById("root")
