@@ -129,7 +129,7 @@ export default function UserProfile({ history }) {
                     />
                   </GridItem>
                 </GridContainer>
-                <div className="text-center mt-2">
+                <div className="text-center mt-4">
                   <Button type={"submit"}>Confirmar Edición</Button>
                 </div>
               </form>
@@ -169,6 +169,7 @@ export default function UserProfile({ history }) {
                     />
                   </GridItem>
                 </GridContainer>
+
                 <GridContainer>
                   <GridItem xs={12} sm={12} md={6}>
                     <TextField
@@ -215,10 +216,8 @@ export default function UserProfile({ history }) {
                     />
                   </GridItem>
                 </GridContainer>
-                <div className="text-center mt-2">
-                  <Button color="success" type="submit">
-                    Confirmar nueva Contraseña
-                  </Button>
+                <div className="text-center mt-4">
+                  <Button type="submit">Confirmar nueva Contraseña</Button>
                 </div>
               </form>
             </CardBody>
