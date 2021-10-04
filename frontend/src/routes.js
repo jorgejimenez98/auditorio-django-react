@@ -3,7 +3,7 @@ import Dashboard from "@material-ui/icons/Dashboard";
 import Person from "@material-ui/icons/Person";
 // core components/views for Admin layout
 import DashboardPage from "./views/Dashboard/Dashboard.js";
-import UserProfile from "./views/UserProfile/UserProfile.js";
+import UserProfile from "./views/UserProfile/UserProfile";
 import UserList from "./views/Users/UserList.js";
 
 const dashboardRoutes = [

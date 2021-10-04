@@ -72,7 +72,7 @@ export default function UserProfile({ history }) {
     },
   });
 
-  // Init Profile Values
+  // Init Profile FORM Values
   initialPersonalData.name = userInfo?.name;
   initialPersonalData.email = userInfo?.email;
 
