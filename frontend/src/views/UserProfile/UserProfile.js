@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { Fade } from "react-awesome-reveal";
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
@@ -43,8 +43,11 @@ const useStyles = makeStyles(styles);
 
 export default function UserProfile({ history }) {
   const classes = useStyles();
+  const dispatch = useDispatch();
 
+  // User Login
   const { userInfo } = useSelector((state) => state.user.userLogin);
+
   useEffect(() => {
     if (!userInfo) {
       history.push("/login");
@@ -68,6 +71,10 @@ export default function UserProfile({ history }) {
       console.log("Values", values);
     },
   });
+
+  // Init Profile Values
+  initialPersonalData.name = userInfo?.name;
+  initialPersonalData.email = userInfo?.email;
 
   return (
     <Fade bottom duration={1000} distance="40px">
