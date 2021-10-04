@@ -1,6 +1,10 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Fade } from "react-awesome-reveal";
+import { changePersonalData } from "../../redux/user/user.actions";
+import { setSnackbar } from "../../redux/snackbar/snackbar.actions";
+import Loader from "../../containers/Loader";
+import Message from "../../containers/Message";
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 // core components
@@ -19,6 +23,7 @@ import {
 } from "../../settings/formik/user-profile-schema";
 import PersonalDataForm from "../../forms/user-profile-forms/PersonalDataForm";
 import PasswordChangeProfile from "../../forms/user-profile-forms/PasswordChangeProfile.jsx";
+import { UserActionTypes } from "../../redux/user/user.types";
 
 const styles = {
   cardTitleWhite: {
@@ -41,18 +46,35 @@ export default function UserProfile({ history }) {
   // User Login
   const { userInfo } = useSelector((state) => state.user.userLogin);
 
+  // User Details Update Selector
+  const {
+    loading: loadingData,
+    error: errorData,
+    success: successData,
+  } = useSelector((state) => state.user.userLoginChangeData);
+
   useEffect(() => {
     if (!userInfo) {
       history.push("/login");
+    } else {
+      if (successData) {
+        const message = "Datos personales Actualizados satisfactoriamente";
+        dispatch(setSnackbar(true, "success", message));
+        dispatch({ type: UserActionTypes.USER_LOGIN_CHANGE_DATA.RESET });
+      }
     }
-  }, [history, userInfo]);
+
+    return () => {
+      dispatch({ type: UserActionTypes.USER_LOGIN_CHANGE_DATA.RESET });
+    };
+  }, [history, successData, dispatch, userInfo]);
 
   // Form with the initials values of the personal Data
   const dataFormik = useFormik({
     initialValues: initialPersonalData,
     validationSchema: personalDataSchema,
     onSubmit: (values) => {
-      console.log("Values", values);
+      dispatch(changePersonalData(values));
     },
   });
 
@@ -80,6 +102,8 @@ export default function UserProfile({ history }) {
               </h4>
             </CardHeader>
             <CardBody>
+              {loadingData && <Loader />}
+              {errorData && <Message type={"error"} message={errorData} />}
               <PersonalDataForm dataFormik={dataFormik} />
             </CardBody>
           </Card>
