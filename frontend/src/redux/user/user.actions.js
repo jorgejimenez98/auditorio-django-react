@@ -47,3 +47,48 @@ export const login = (email, password) => async (dispatch) => {
     });
   }
 };
+
+export const changePersonalData = (values) => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: UserActionTypes.USER_LOGIN_CHANGE_DATA.REQUEST,
+    });
+    const {
+      userLogin: { userInfo },
+    } = getState().user;
+
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
+
+    const { data } = await axios.post(
+      `${defaultApi}/users/changePersonalData/`,
+      values,
+      config
+    );
+
+    // Update New User Profile
+    dispatch({
+      type: UserActionTypes.USER_LOGIN.SUCCESS,
+      payload: data,
+    });
+    localStorage.setItem("userInfo", JSON.stringify(data));
+
+    // Set a success message
+
+    dispatch({
+      type: UserActionTypes.USER_LOGIN_CHANGE_DATA.SUCCESS,
+    });
+  } catch (error) {
+    dispatch({
+      type: UserActionTypes.USER_LOGIN_CHANGE_DATA.ERROR,
+      payload:
+        error.response && error.response.data.detail
+          ? error.response.data.detail
+          : error.message,
+    });
+  }
+};
