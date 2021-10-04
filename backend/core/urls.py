@@ -9,5 +9,5 @@ router = routers.DefaultRouter()
 router.register('users', UserViewSet)
 
 urlpatterns = [
-    path('users/login/', MyTokenObtainPairView.as_view(), name='loginView'),
+    path('users/login/', MyTokenObtainPairView.as_view(), name='loginView')
 ]

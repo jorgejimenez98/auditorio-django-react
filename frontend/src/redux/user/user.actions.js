@@ -4,7 +4,7 @@ import { defaultApi } from "../../backendUrls";
 
 export const logout = () => async (dispatch) => {
   dispatch({ type: UserActionTypes.USER_LOGIN.RESET });
-  localStorage.removeItem("token");
+  localStorage.removeItem("userInfo");
 };
 
 export const login = (email, password) => async (dispatch) => {
@@ -35,7 +35,7 @@ export const login = (email, password) => async (dispatch) => {
         type: UserActionTypes.USER_LOGIN.SUCCESS,
         payload: data,
       });
-      localStorage.setItem("token", JSON.stringify(data.token));
+      localStorage.setItem("userInfo", JSON.stringify(data));
     }
   } catch (error) {
     dispatch({
