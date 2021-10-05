@@ -60,11 +60,10 @@ class UserViewSet(viewsets.ModelViewSet):
             user.objects.create_user(
                 name=data.get('name'),
                 email=data.get('email'),
-                is_staff=True if data.get('rol') == 'isAdmin' else False,
-                isBoosWorkOrder=True if data.get(
-                    'rol') == 'isBoosWorkOrder' else False,
-                isBoosPlan=True if data.get('rol') == 'isBoosPlan' else False,
-                isAuditor=True if data.get('rol') == 'isAuditor' else False,
+                is_staff=data.get('rol') == 'isAdmin',
+                isBoosWorkOrder=data.get('rol') == 'isBoosWorkOrder',
+                isBoosPlan=data.get('rol') == 'isBoosPlan',
+                isAuditor=data.get('rol') == 'isAuditor',
                 password=make_password(data.get('password'))
             )
             return Response({'Users CREATED Successfully'}, status=status.HTTP_201_CREATED)
@@ -72,6 +71,36 @@ class UserViewSet(viewsets.ModelViewSet):
             message = f"Ya existe un usuario con el correo {data.get('email')}"
             return Response({'detail': message}, status=status.HTTP_400_BAD_REQUEST)
         except Exception as e:
+            return Response({'detail': e.args[0]}, status=status.HTTP_400_BAD_REQUEST)
+
+    @action(methods=["PUT"], detail=True)
+    def updateUser(self, request, pk=None):
+        """ Method to update a User values """
+        data = request.data
+        try:
+            user = get_user_model().objects.get(pk=pk)
+
+            # Validate that the app is not going to stay with out admins
+            if user.is_staff and not data.get('rol') == 'isAdmin' and get_user_model().objects.filter(is_staff=True).count() == 1:
+                message = 'Error. No puede dejar el sistema sin administradores'
+                raise Exception(message)
+
+            # Update User Values
+            user.name = data.get('name')
+            user.email = data.get('email')
+            user.is_staff = data.get('rol') == 'isAdmin'
+            user.isBoosWorkOrder = data.get('rol') == 'isBoosWorkOrder'
+            user.isBoosPlan = data.get('rol') == 'isBoosPlan'
+            user.isAuditor = data.get('rol') == 'isAuditor'
+            user.save()
+
+            # Return the view Response
+            return Response({'Users UPDATED Successfully'}, status=status.HTTP_201_CREATED)
+        except IntegrityError:
+            message = f"Ya existe un usuario con el correo {data.get('email')}"
+            return Response({'detail': message}, status=status.HTTP_400_BAD_REQUEST)
+        except Exception as e:
+            print(e)
             return Response({'detail': e.args[0]}, status=status.HTTP_400_BAD_REQUEST)
 
 
