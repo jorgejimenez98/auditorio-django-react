@@ -2,13 +2,13 @@ import React, { useEffect } from "react";
 import { Fade } from "react-awesome-reveal";
 import { LinkContainer } from "react-router-bootstrap";
 // Utils containers
-//import { Loader, Message } from "../../containers";
+import { Loader, Message } from "../../containers";
 
 // redux imports
 import { useSelector, useDispatch } from "react-redux";
-/* import { createUser } from "../../redux/user/user.actions";
+import { getUserDetails, updateUser } from "../../redux/user/user.actions";
 import { setSnackbar } from "../../redux/snackbar/snackbar.actions";
-import { UserActionTypes } from "../../redux/user/user.types"; */
+import { UserActionTypes } from "../../redux/user/user.types";
 
 // Form Components
 import PersonalDataForm from "../../forms/user-add-edit-forms/PersonalDataForm";
@@ -27,81 +27,127 @@ import CardBody from "../../components/Card/CardBody.js";
 
 // formik imports
 import {
-  initialAddValues,
-  addSchema,
+  editSchema,
   styles,
+  initialEditValues,
 } from "../../settings/formik/user-add-edit-schema";
 import { useFormik } from "formik";
 
 const useStyles = makeStyles(styles);
 
-function UserEdit({ history }) {
+function UserEdit({ history, match }) {
+  const userId = match.params.userId;
   const classes = useStyles();
   const dispatch = useDispatch();
 
   // User Info Selector
   const { userInfo } = useSelector((state) => state.user.userLogin);
 
+  // User Details Selector
+  const {
+    loading: loadingDetails,
+    error: errorDetails,
+    user,
+  } = useSelector((state) => state.user.userDetails);
+
+  // User Update Selector
+  const {
+    loading: loadingUpdate,
+    error: errorUpdate,
+    success: successUpdate,
+  } = useSelector((state) => state.user.userUpdate);
+
   useEffect(() => {
     if (!userInfo) {
       history.push("/login");
     } else if (!userInfo.isAdmin) {
       history.push("/403");
+    } else {
+      if (userId) {
+        dispatch(getUserDetails(userId));
+      }
+      if (successUpdate) {
+        const message = "Usuario Editado Satisfactoriamente";
+        dispatch(setSnackbar(true, "success", message));
+        history.push("/admin/user-list");
+        dispatch({ type: UserActionTypes.USER_UPDATE.RESET });
+      }
     }
-  }, [history, userInfo, dispatch]);
+
+    return () => {
+      dispatch({ type: UserActionTypes.USER_DETAILS.RESET });
+      dispatch({ type: UserActionTypes.USER_UPDATE.RESET });
+    };
+  }, [history, userInfo, dispatch, userId, successUpdate]);
 
   // Form with the initials values of the personal Data
   const formik = useFormik({
-    initialValues: initialAddValues,
-    validationSchema: addSchema,
+    initialValues: initialEditValues,
+    validationSchema: editSchema,
     onSubmit: (values) => {
-      console.log("Edit", values);
+      dispatch(updateUser(userId, values));
     },
   });
 
+  // Initialize the formik values
+  initialEditValues.name = user?.name;
+  initialEditValues.email = user?.email;
+  initialEditValues.rol = user?.bolRol;
+
   return (
-    <Fade bottom duration={1000} distance="40px">
-      <form onSubmit={formik.handleSubmit}>
-        <GridContainer>
-          <GridItem xs={12} sm={12} md={12}>
-            <Card>
-              <CardHeader color="primary">
-                <h6 className={classes.cardTitleWhite}>Datos Personales</h6>
-              </CardHeader>
-              <CardBody>
-                <PersonalDataForm formik={formik} />
-              </CardBody>
-            </Card>
-          </GridItem>
+    <Fade duration={1000} distance="40px">
+      {loadingDetails ? (
+        <Loader />
+      ) : errorDetails ? (
+        <Message type="error" message={errorDetails} />
+      ) : (
+        <form onSubmit={formik.handleSubmit}>
+          {errorUpdate && <Message message={errorUpdate} type="error" />}
 
-          <GridItem xs={12} sm={12} md={12}>
-            <Card>
-              <CardHeader color="primary">
-                <h6 className={classes.cardTitleWhite}>
-                  Elegir Rol de Usuario
-                </h6>
-              </CardHeader>
-              <CardBody>
-                <UserRolForm formik={formik} />
-              </CardBody>
-            </Card>
-          </GridItem>
-        </GridContainer>
+          <GridContainer>
+            <GridItem xs={12} sm={12} md={12}>
+              <Card>
+                <CardHeader color="primary">
+                  <h6 className={classes.cardTitleWhite}>
+                    Editar Datos Personales
+                  </h6>
+                </CardHeader>
+                <CardBody>
+                  <PersonalDataForm formik={formik} />
+                </CardBody>
+              </Card>
+            </GridItem>
 
-        <div className="text-center mt-4">
-          <LinkContainer to="/admin/user-list">
-            <Button color="primary">Cancelar</Button>
-          </LinkContainer>
-          <Button
-            type="submit"
-            color="primary"
-            variant="contained"
-            className="ml-3"
-          >
-            Editar Usuario
-          </Button>
-        </div>
-      </form>
+            <GridItem xs={12} sm={12} md={12}>
+              <Card>
+                <CardHeader color="primary">
+                  <h6 className={classes.cardTitleWhite}>
+                    Editar Rol de Usuario
+                  </h6>
+                </CardHeader>
+                <CardBody>
+                  <UserRolForm formik={formik} />
+                </CardBody>
+              </Card>
+            </GridItem>
+          </GridContainer>
+
+          <div className="text-center mt-4">
+            {loadingUpdate && <Loader />}
+            <LinkContainer to="/admin/user-list">
+              <Button color="primary">Cancelar</Button>
+            </LinkContainer>
+            <Button
+              type="submit"
+              color="primary"
+              variant="contained"
+              className="ml-3"
+            >
+              Editar Usuario
+            </Button>
+          </div>
+        </form>
+      )}
     </Fade>
   );
 }
