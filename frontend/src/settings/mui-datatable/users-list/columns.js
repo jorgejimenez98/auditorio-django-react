@@ -72,7 +72,7 @@ export const columns = [
         const userName = tableMeta.rowData[1];
         const userId = tableMeta.rowData[0];
         return (
-          <LinkContainer to={`/users/edit/${userId}`}>
+          <LinkContainer to={`/admin/users/edit/${userId}`}>
             <Tooltip title={`Editar Usuario: ${userName}`} placement="bottom">
               <IconButton>
                 <EditIcon />
