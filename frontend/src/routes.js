@@ -19,7 +19,8 @@ import FinalReportComponent from "./views/final-report/final-report.component";
 import WorkOrderComponent from "./views/work-order/work-order.component";
 import WorkSheetComponent from "./views/work-sheet/work-sheet.component";
 import YearPlanComponent from "./views/year-plan/year-plan.component";
-import UserAddOrEdit from "./views/Users/UserAddOrEdit";
+import UserAdd from "./views/Users/UserAdd";
+import UserEdit from "./views/Users/UserEdit";
 
 const dashboardRoutes = [
   // SideBar Routes
@@ -96,9 +97,16 @@ const dashboardRoutes = [
     sidebar: false,
   },
   {
-    path: "/users/form",
-    name: "Insertar o Editar Usuario",
-    component: UserAddOrEdit,
+    path: "/users/add",
+    name: "Insertar Usuario",
+    component: UserAdd,
+    layout: "/admin",
+    sidebar: false,
+  },
+  {
+    path: "/users/edit/:userId",
+    name: "Editar Usuario",
+    component: UserEdit,
     layout: "/admin",
     sidebar: false,
   },
