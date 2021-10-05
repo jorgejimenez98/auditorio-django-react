@@ -3,12 +3,13 @@ from rest_framework import routers
 # Django imports
 from django.urls import path
 # Login View and View Set
-from .views import MyTokenObtainPairView, UserViewSet, changePersonalData
+from . import views
 
 router = routers.DefaultRouter()
-router.register('users', UserViewSet)
+router.register('users', views.UserViewSet)
 
 urlpatterns = [
-    path('users/login/', MyTokenObtainPairView.as_view(), name='loginView'),
-    path('users/changePersonalData/', changePersonalData, name='changePersonalData'),
+    path('users/login/', views.MyTokenObtainPairView.as_view(), name='loginView'),
+    path('users/changePersonalData/', views.changePersonalData, name='changePersonalData'),
+    path('users/updateUserPassword/', views.updateUserPassword, name='updateUserPassword'),
 ]
