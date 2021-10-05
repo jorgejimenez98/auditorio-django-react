@@ -206,3 +206,35 @@ export const deleteUsers = (items) => async (dispatch, getState) => {
     });
   }
 };
+
+export const createUser = (values) => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: UserActionTypes.USER_CREATE.REQUEST,
+    });
+    const {
+      userLogin: { userInfo },
+    } = getState().user;
+
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
+
+    await axios.post(`${defaultApi}/api/users/createUser/`, values, config);
+
+    dispatch({
+      type: UserActionTypes.USER_CREATE.SUCCESS,
+    });
+  } catch (error) {
+    dispatch({
+      type: UserActionTypes.USER_CREATE.ERROR,
+      payload:
+        error.response && error.response.data.detail
+          ? error.response.data.detail
+          : error.message,
+    });
+  }
+};
