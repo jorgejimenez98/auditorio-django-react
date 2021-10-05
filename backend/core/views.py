@@ -56,10 +56,20 @@ class UserViewSet(viewsets.ModelViewSet):
         """ Method to create a new User """
         data = request.data
         try:
-            print(data)
+            user = get_user_model()
+            user.objects.create_user(
+                name=data.get('name'),
+                email=data.get('email'),
+                is_staff=True if data.get('rol') == 'isAdmin' else False,
+                isBoosWorkOrder=True if data.get(
+                    'rol') == 'isBoosWorkOrder' else False,
+                isBoosPlan=True if data.get('rol') == 'isBoosPlan' else False,
+                isAuditor=True if data.get('rol') == 'isAuditor' else False,
+                password=make_password(data.get('password'))
+            )
             return Response({'Users CREATED Successfully'}, status=status.HTTP_201_CREATED)
         except IntegrityError:
-            message = f'Ya existe un usuario con el correo {data['email']}'
+            message = f"Ya existe un usuario con el correo {data.get('email')}"
             return Response({'detail': message}, status=status.HTTP_400_BAD_REQUEST)
         except Exception as e:
             return Response({'detail': e.args[0]}, status=status.HTTP_400_BAD_REQUEST)
@@ -95,8 +105,8 @@ def updateUserPassword(request):
     data = request.data
     try:
         if not user.check_password(data.get('oldPassword')):
-            raise Exception(
-                'La actual contraseña no es correcta, inténtelo de nuevo')
+            errorMessage = 'La actual contraseña no es correcta, inténtelo de nuevo'
+            raise Exception(errorMessage)
         user.password = make_password(data.get('newPassword'))
         user.save()
         return Response(UserSerializerWithToken(user, many=False).data, status=status.HTTP_200_OK)
