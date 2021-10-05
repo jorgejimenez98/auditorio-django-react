@@ -271,3 +271,35 @@ export const getUserDetails = (id) => async (dispatch, getState) => {
     });
   }
 };
+
+export const updateUser = (id, values) => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: UserActionTypes.USER_UPDATE.REQUEST,
+    });
+    const {
+      userLogin: { userInfo },
+    } = getState().user;
+
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
+
+    await axios.put(`${defaultApi}/api/users/${id}/updateUser/`, values, config);
+
+    dispatch({
+      type: UserActionTypes.USER_UPDATE.SUCCESS,
+    });
+  } catch (error) {
+    dispatch({
+      type: UserActionTypes.USER_UPDATE.ERROR,
+      payload:
+        error.response && error.response.data.detail
+          ? error.response.data.detail
+          : error.message,
+    });
+  }
+};

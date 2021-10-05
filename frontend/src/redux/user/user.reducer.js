@@ -163,14 +163,36 @@ const userDetailsReducer = (state = { user: {} }, action) => {
   }
 };
 
+// USER UPDATE REDUCER
+
+const userUpdateReducer = (state = {}, action) => {
+  switch (action.type) {
+    case UserActionTypes.USER_UPDATE.REQUEST:
+      return { loading: true };
+
+    case UserActionTypes.USER_UPDATE.SUCCESS:
+      return { loading: false, success: true };
+
+    case UserActionTypes.USER_UPDATE.ERROR:
+      return { loading: false, error: action.payload };
+
+    case UserActionTypes.USER_UPDATE.RESET:
+      return {};
+
+    default:
+      return state;
+  }
+};
+
 const userReducer = combineReducers({
   userLogin: userLoginReducer,
-  userLoginChangeData: userLoginChangeDataReducer,
-  userLoginChangePassword: userLoginChangePasswordReducer,
   userList: userListReducer,
   userDelete: userDeleteReducer,
   userCreate: userCreateReducer,
   userDetails: userDetailsReducer,
+  userUpdate: userUpdateReducer,
+  userLoginChangeData: userLoginChangeDataReducer,
+  userLoginChangePassword: userLoginChangePasswordReducer,
 });
 
 export default userReducer;
