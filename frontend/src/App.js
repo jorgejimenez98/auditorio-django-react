@@ -1,20 +1,20 @@
-import React from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import CustomizedSnackbars from './containers/SnackBar';
-import './App.css';
+import React from "react";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
+import CustomizedSnackbars from "./containers/SnackBar";
+import "./App.css";
 
 const loading = (
   <div className="pt-3 text-center">
     <div className="sk-spinner sk-spinner-pulse"></div>
   </div>
-)
+);
 
 // Containers
-const Dashbard = React.lazy(() => import('./components/Dashbard'));
+const AdminLayout = React.lazy(() => import("./layouts/AdminLayout"));
 
 // Pages
-const Login = React.lazy(() => import('./components/Login'));
-const Page403 = React.lazy(() => import('./components/Page403'));
+const Login = React.lazy(() => import("./views/Login/Login"));
+const Page403 = React.lazy(() => import("./views/Page403/Page403"));
 
 function App() {
   return (
@@ -36,8 +36,8 @@ function App() {
           />
           <Route
             path="/"
-            name="Dashbard"
-            render={(props) => <Dashbard {...props} />}
+            name="The Layout"
+            render={(props) => <AdminLayout {...props} />}
           />
         </Switch>
       </React.Suspense>

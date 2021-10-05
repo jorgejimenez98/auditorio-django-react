@@ -1,12 +1,12 @@
 import React, { useEffect } from "react";
 // OBJECTS
 import { useDispatch, useSelector } from "react-redux";
-import { login } from "../redux/user/user.actions";
+import { login } from "../../redux/user/user.actions";
 import * as yup from "yup";
 import { useFormik } from "formik";
 // COMPONENTS
-import Message from "../containers/Message";
-import Loader from "../containers/Loader";
+import Message from "../../containers/Message";
+import Loader from "../../containers/Loader";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
