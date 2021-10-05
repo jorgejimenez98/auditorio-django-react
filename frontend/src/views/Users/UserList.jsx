@@ -82,7 +82,7 @@ function UserList({ history }) {
   listOptions.customToolbar = () => {
     return (
       <AddButtomListHeader
-        addLink="/admin/users/form"
+        addLink="/admin/users/add"
         title="Insertar Usuario"
       />
     );
