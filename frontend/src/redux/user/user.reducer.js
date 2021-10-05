@@ -10,6 +10,8 @@ const INITIAL_STATE = {
   userInfo: userInfoFromStorage,
 };
 
+// USER LOGIN REDUCER
+
 const userLoginReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case UserActionTypes.USER_LOGIN.REQUEST:
@@ -29,9 +31,80 @@ const userLoginReducer = (state = INITIAL_STATE, action) => {
   }
 };
 
+// USER LOGIN CHANGE PERSONAL DATA REDUCER
+
+const userLoginChangeDataReducer = (
+  state = { loading: false, success: false, error: null },
+  action
+) => {
+  switch (action.type) {
+    case UserActionTypes.USER_LOGIN_CHANGE_DATA.REQUEST:
+      return { loading: true };
+
+    case UserActionTypes.USER_LOGIN_CHANGE_DATA.SUCCESS:
+      return { loading: false, success: true };
+
+    case UserActionTypes.USER_LOGIN_CHANGE_DATA.ERROR:
+      return { loading: false, error: action.payload };
+
+    case UserActionTypes.USER_LOGIN_CHANGE_DATA.RESET:
+      return {};
+
+    default:
+      return state;
+  }
+};
+
+// USER LOGIN CHANGE PASSWORD REDUCER
+
+const userLoginChangePasswordReducer = (
+  state = { loading: false, success: false, error: null },
+  action
+) => {
+  switch (action.type) {
+    case UserActionTypes.USER_LOGIN_CHANGE_PASSWORD.REQUEST:
+      return { loading: true };
+
+    case UserActionTypes.USER_LOGIN_CHANGE_PASSWORD.SUCCESS:
+      return { loading: false, success: true };
+
+    case UserActionTypes.USER_LOGIN_CHANGE_PASSWORD.ERROR:
+      return { loading: false, error: action.payload };
+
+    case UserActionTypes.USER_LOGIN_CHANGE_PASSWORD.RESET:
+      return {};
+
+    default:
+      return state;
+  }
+};
+
+// USER LOGIN CHANGE PASSWORD REDUCER
+
+const userListReducer = (state = { users: [] }, action) => {
+  switch (action.type) {
+    case UserActionTypes.USER_SHOW.REQUEST:
+      return { loading: true };
+
+    case UserActionTypes.USER_SHOW.SUCCESS:
+      return { loading: false, users: action.payload };
+
+    case UserActionTypes.USER_SHOW.ERROR:
+      return { loading: false, error: action.payload };
+
+    case UserActionTypes.USER_SHOW.RESET:
+      return { users: [] };
+
+    default:
+      return state;
+  }
+};
 
 const userReducer = combineReducers({
   userLogin: userLoginReducer,
+  userLoginChangeData: userLoginChangeDataReducer,
+  userLoginChangePassword: userLoginChangePasswordReducer,
+  userList: userListReducer,
 });
 
 export default userReducer;
