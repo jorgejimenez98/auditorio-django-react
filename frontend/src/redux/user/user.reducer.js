@@ -142,6 +142,27 @@ const userCreateReducer = (state = {}, action) => {
   }
 };
 
+// USER DETAILS REDUCER
+
+const userDetailsReducer = (state = { user: {} }, action) => {
+  switch (action.type) {
+    case UserActionTypes.USER_DETAILS.REQUEST:
+      return { loading: true };
+
+    case UserActionTypes.USER_DETAILS.SUCCESS:
+      return { loading: false, user: action.payload };
+
+    case UserActionTypes.USER_DETAILS.ERROR:
+      return { loading: false, error: action.payload };
+
+    case UserActionTypes.USER_DETAILS.RESET:
+      return { user: {} };
+
+    default:
+      return state;
+  }
+};
+
 const userReducer = combineReducers({
   userLogin: userLoginReducer,
   userLoginChangeData: userLoginChangeDataReducer,
@@ -149,6 +170,7 @@ const userReducer = combineReducers({
   userList: userListReducer,
   userDelete: userDeleteReducer,
   userCreate: userCreateReducer,
+  userDetails: userDetailsReducer,
 });
 
 export default userReducer;

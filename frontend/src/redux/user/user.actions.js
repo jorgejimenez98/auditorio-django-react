@@ -238,3 +238,36 @@ export const createUser = (values) => async (dispatch, getState) => {
     });
   }
 };
+
+export const getUserDetails = (id) => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: UserActionTypes.USER_DETAILS.REQUEST,
+    });
+    const {
+      userLogin: { userInfo },
+    } = getState().user;
+
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
+
+    const { data } = await axios.get(`${defaultApi}/api/users/${id}/`, config);
+
+    dispatch({
+      type: UserActionTypes.USER_DETAILS.SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: UserActionTypes.USER_DETAILS.ERROR,
+      payload:
+        error.response && error.response.data.detail
+          ? error.response.data.detail
+          : error.message,
+    });
+  }
+};
