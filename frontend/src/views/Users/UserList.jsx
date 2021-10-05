@@ -1,7 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getUserList } from "../../redux/user/user.actions";
-import { AddButtomListHeader, Loader, Message, WarningAdminDeletionModal } from "../../containers";
+import {
+  AddButtomListHeader,
+  Loader,
+  Message,
+  WarningAdminDeletionModal,
+} from "../../containers";
 import { columns } from "../../settings/mui-datatable/users-list/columns";
 import { listOptions } from "../../settings/mui-datatable/users-list/list-options";
 import MUIDataTable from "mui-datatables";
@@ -11,7 +16,7 @@ import { Fade } from "react-awesome-reveal";
 import ConfirmationDialog from "../../containers/ConfirmationDialog";
 import { setSnackbar } from "../../redux/snackbar/snackbar.actions";
 import { UserActionTypes } from "../../redux/user/user.types";
-import { logout } from '../../redux/user/user.actions'
+import { logout, deleteUsers } from "../../redux/user/user.actions";
 
 function UserList({ history }) {
   const [showModal, setShowModal] = useState(false);
@@ -24,6 +29,13 @@ function UserList({ history }) {
   // User List Selector
   const { loading, error, users } = useSelector((state) => state.user.userList);
 
+  // User DELETE Selector
+  const {
+    loading: loadingDelete,
+    error: errorDelete,
+    success: successDelete,
+  } = useSelector((state) => state.user.userDelete);
+
   useEffect(() => {
     if (!userInfo) {
       history.push("/login");
@@ -31,9 +43,20 @@ function UserList({ history }) {
       history.push("/403");
     } else {
       dispatch(getUserList());
-    }
-  }, [history, userInfo, dispatch]);
 
+      if (successDelete) {
+        const message = "Usuarios Eliminados Satisfactoriamente";
+        dispatch(setSnackbar(true, "success", message));
+        dispatch({ type: UserActionTypes.USER_DELETE.RESET });
+      }
+    }
+
+    return () => {
+      dispatch({ type: UserActionTypes.USER_DELETE.RESET });
+    };
+  }, [history, userInfo, dispatch, successDelete]);
+
+  // Manage Custom Toolbar Select
   listOptions.customToolbarSelect = ({ data }) => {
     return (
       <React.Fragment>
@@ -87,8 +110,6 @@ function UserList({ history }) {
     const administratorCount = getAdministratorsCount(users);
     const administratorsToDelete = getAdministratorsCount(rowsToDelete);
 
-    console.log(administratorCount, administratorsToDelete);
-
     if (administratorCount === administratorsToDelete) {
       showShackBar(
         "error",
@@ -102,7 +123,7 @@ function UserList({ history }) {
       setShowWarningError(true);
     } else {
       setShowWarningError(false);
-      console.log("Eliminar 111", rowsToDelete);
+      dispatch(deleteUsers(rowsToDelete));
     }
   };
 
@@ -117,19 +138,21 @@ function UserList({ history }) {
   };
 
   // Confirm Delete After User Login Warning
-  const confirmDelete = (items) => {
-    // User Delete Reset
-    //dispatch(deleteUsers(items));
-    console.log('Eliminar Usuarios 22', rowsToDelete)
+  const confirmDelete = () => {
+    dispatch({ type: UserActionTypes.USER_DELETE.RESET });
+    dispatch(deleteUsers(rowsToDelete));
     dispatch(logout());
   };
 
   return (
     <React.Fragment>
+      {loadingDelete && <Loader />}
+      {errorDelete && <Message type="error" message={errorDelete} />}
+
       {loading ? (
         <Loader />
       ) : error ? (
-        <Message color="error" message={error} />
+        <Message type="error" message={error} />
       ) : (
         users && (
           <Fade bottom duration={1000} distance="40px">
