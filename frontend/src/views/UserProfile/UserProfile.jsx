@@ -1,7 +1,10 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Fade } from "react-awesome-reveal";
-import { changePersonalData } from "../../redux/user/user.actions";
+import {
+  changePersonalData,
+  changeUserLoginPassword,
+} from "../../redux/user/user.actions";
 import { setSnackbar } from "../../redux/snackbar/snackbar.actions";
 import Loader from "../../containers/Loader";
 import Message from "../../containers/Message";
@@ -53,6 +56,13 @@ export default function UserProfile({ history }) {
     success: successData,
   } = useSelector((state) => state.user.userLoginChangeData);
 
+  // User Password Update Selector
+  const {
+    loading: loadingPass,
+    error: errorPass,
+    success: successPass,
+  } = useSelector((state) => state.user.userLoginChangePassword);
+
   useEffect(() => {
     if (!userInfo) {
       history.push("/login");
@@ -62,12 +72,13 @@ export default function UserProfile({ history }) {
         dispatch(setSnackbar(true, "success", message));
         dispatch({ type: UserActionTypes.USER_LOGIN_CHANGE_DATA.RESET });
       }
+      if (successPass) {
+        const message = "Contraseña actualizada satisfactoriamente";
+        dispatch(setSnackbar(true, "success", message));
+        dispatch({ type: UserActionTypes.USER_LOGIN_CHANGE_PASSWORD.RESET });
+      }
     }
-
-    return () => {
-      dispatch({ type: UserActionTypes.USER_LOGIN_CHANGE_DATA.RESET });
-    };
-  }, [history, successData, dispatch, userInfo]);
+  }, [history, successData, successPass, dispatch, userInfo]);
 
   // Form with the initials values of the personal Data
   const dataFormik = useFormik({
@@ -83,7 +94,7 @@ export default function UserProfile({ history }) {
     initialValues: passwordInitialValues,
     validationSchema: passwordSchema,
     onSubmit: (values) => {
-      console.log("Values", values);
+      dispatch(changeUserLoginPassword(values));
     },
   });
 
@@ -115,6 +126,8 @@ export default function UserProfile({ history }) {
               <h4 className={classes.cardTitleWhite}>Cambiar Contraseña</h4>
             </CardHeader>
             <CardBody>
+              {loadingPass && <Loader />}
+              {errorPass && <Message type={"error"} message={errorPass} />}
               <PasswordChangeProfile passFormik={passFormik} />
             </CardBody>
           </Card>
