@@ -121,12 +121,34 @@ const userDeleteReducer = (state = {}, action) => {
   }
 };
 
+// USER CREATE REDUCER
+
+const userCreateReducer = (state = {}, action) => {
+  switch (action.type) {
+    case UserActionTypes.USER_CREATE.REQUEST:
+      return { loading: true };
+
+    case UserActionTypes.USER_CREATE.SUCCESS:
+      return { loading: false, success: true };
+
+    case UserActionTypes.USER_CREATE.ERROR:
+      return { loading: false, error: action.payload };
+
+    case UserActionTypes.USER_CREATE.RESET:
+      return {};
+
+    default:
+      return state;
+  }
+};
+
 const userReducer = combineReducers({
   userLogin: userLoginReducer,
   userLoginChangeData: userLoginChangeDataReducer,
   userLoginChangePassword: userLoginChangePasswordReducer,
   userList: userListReducer,
   userDelete: userDeleteReducer,
+  userCreate: userCreateReducer,
 });
 
 export default userReducer;
