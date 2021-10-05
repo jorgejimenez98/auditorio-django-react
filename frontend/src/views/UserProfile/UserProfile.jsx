@@ -1,13 +1,14 @@
 import React, { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
 import { Fade } from "react-awesome-reveal";
+// Redux dependencies and types
+import { useSelector, useDispatch } from "react-redux";
+import { UserActionTypes } from "../../redux/user/user.types";
+//  Actions
 import {
   changePersonalData,
   changeUserLoginPassword,
 } from "../../redux/user/user.actions";
 import { setSnackbar } from "../../redux/snackbar/snackbar.actions";
-import Loader from "../../containers/Loader";
-import Message from "../../containers/Message";
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 // core components
@@ -24,9 +25,11 @@ import {
   passwordInitialValues,
   passwordSchema,
 } from "../../settings/formik/user-profile-schema";
+// FORMS and UTILS COMPONENTS
 import PersonalDataForm from "../../forms/user-profile-forms/PersonalDataForm";
 import PasswordChangeProfile from "../../forms/user-profile-forms/PasswordChangeProfile.jsx";
-import { UserActionTypes } from "../../redux/user/user.types";
+import Loader from "../../containers/Loader";
+import Message from "../../containers/Message";
 
 const styles = {
   cardTitleWhite: {
