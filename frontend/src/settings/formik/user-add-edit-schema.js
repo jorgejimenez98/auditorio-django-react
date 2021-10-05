@@ -1,5 +1,17 @@
 import * as yup from "yup";
 
+export const styles = {
+  cardTitleWhite: {
+    color: "#FFFFFF",
+    marginTop: "0px",
+    minHeight: "auto",
+    fontWeight: "200",
+    fontFamily: "'Roboto', 'Helvetica', 'Arial', sans-serif",
+    marginBottom: "3px",
+    textDecoration: "none",
+  },
+};
+
 export const initialAddValues = {
   name: "",
   email: "",
