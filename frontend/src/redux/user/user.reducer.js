@@ -51,9 +51,32 @@ const userLoginChangeDataReducer = (
   }
 };
 
+const userLoginChangePasswordReducer = (
+  state = { loading: false, success: false, error: null },
+  action
+) => {
+  switch (action.type) {
+    case UserActionTypes.USER_LOGIN_CHANGE_PASSWORD.REQUEST:
+      return { loading: true };
+
+    case UserActionTypes.USER_LOGIN_CHANGE_PASSWORD.SUCCESS:
+      return { loading: false, success: true };
+
+    case UserActionTypes.USER_LOGIN_CHANGE_PASSWORD.ERROR:
+      return { loading: false, error: action.payload };
+
+    case UserActionTypes.USER_LOGIN_CHANGE_PASSWORD.RESET:
+      return {};
+
+    default:
+      return state;
+  }
+};
+
 const userReducer = combineReducers({
   userLogin: userLoginReducer,
   userLoginChangeData: userLoginChangeDataReducer,
+  userLoginChangePassword: userLoginChangePasswordReducer,
 });
 
 export default userReducer;
