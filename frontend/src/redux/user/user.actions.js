@@ -92,3 +92,48 @@ export const changePersonalData = (values) => async (dispatch, getState) => {
     });
   }
 };
+
+
+export const changeUserLoginPassword = (values) => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: UserActionTypes.USER_LOGIN_CHANGE_PASSWORD.REQUEST,
+    });
+    const {
+      userLogin: { userInfo },
+    } = getState().user;
+
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
+
+    const { data } = await axios.put(
+      `${defaultApi}/users/updateUserPassword/`,
+      values,
+      config
+    );
+
+    // Update New User Profile
+    dispatch({
+      type: UserActionTypes.USER_LOGIN.SUCCESS,
+      payload: data,
+    });
+    localStorage.setItem("userInfo", JSON.stringify(data));
+
+    // Set a success message
+    dispatch({
+      type: UserActionTypes.USER_LOGIN_CHANGE_PASSWORD.SUCCESS,
+    });
+  } catch (error) {
+    dispatch({
+      type: UserActionTypes.USER_LOGIN_CHANGE_PASSWORD.ERROR,
+      payload:
+        error.response && error.response.data.detail
+          ? error.response.data.detail
+          : error.message,
+    });
+  }
+};
