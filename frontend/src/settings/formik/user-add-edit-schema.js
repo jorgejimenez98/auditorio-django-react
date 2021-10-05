@@ -20,6 +20,22 @@ export const initialAddValues = {
   confirmPassword: "",
 };
 
+export const initialEditValues = {
+  name: "",
+  email: "",
+  rol: "",
+};
+
+export const editSchema = yup.object({
+  name: yup.string().trim().required("El nombre es obligatorio"),
+  email: yup
+    .string()
+    .trim()
+    .email("Entre un correo válido. Ej: nombre@correo.com")
+    .required("El correo es obligatorio"),
+  rol: yup.string().required("Debes seleccionar un rol de usuario"),
+});
+
 export const addSchema = yup.object({
   name: yup.string().trim().required("El nombre es obligatorio"),
   email: yup
