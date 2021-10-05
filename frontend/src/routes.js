@@ -2,23 +2,24 @@
 import Dashboard from "@material-ui/icons/Dashboard";
 import Person from "@material-ui/icons/Person";
 import {
-  AiFillFilePpt, 
+  AiFillFilePpt,
   FaFileSignature,
   GiFullFolder,
   HiDocumentReport,
   BsGraphDown,
   FaFileInvoice,
-} from 'react-icons/all';
+} from "react-icons/all";
 // core components/views for Admin layout
 import DashboardPage from "./views/Dashboard/Dashboard";
 import UserProfile from "./views/UserProfile/UserProfile";
 import UserList from "./views/Users/UserList";
 import DeficiencySummaryComponent from "./views/deficiency-summary/deficiency-summary.component";
-import FileComponent from './views/file/file.component';
-import FinalReportComponent from './views/final-report/final-report.component';
-import WorkOrderComponent from './views/work-order/work-order.component';
-import WorkSheetComponent from './views/work-sheet/work-sheet.component';
-import YearPlanComponent from './views/year-plan/year-plan.component';
+import FileComponent from "./views/file/file.component";
+import FinalReportComponent from "./views/final-report/final-report.component";
+import WorkOrderComponent from "./views/work-order/work-order.component";
+import WorkSheetComponent from "./views/work-sheet/work-sheet.component";
+import YearPlanComponent from "./views/year-plan/year-plan.component";
+import UserAddOrEdit from "./views/Users/UserAddOrEdit";
 
 const dashboardRoutes = [
   // SideBar Routes
@@ -91,6 +92,13 @@ const dashboardRoutes = [
     path: "/user-profile",
     name: "Perfíl de Usuario",
     component: UserProfile,
+    layout: "/admin",
+    sidebar: false,
+  },
+  {
+    path: "/users/form",
+    name: "Insertar o Editar Usuario",
+    component: UserAddOrEdit,
     layout: "/admin",
     sidebar: false,
   },
