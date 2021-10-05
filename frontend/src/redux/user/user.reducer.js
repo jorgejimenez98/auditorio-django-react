@@ -100,11 +100,33 @@ const userListReducer = (state = { users: [] }, action) => {
   }
 };
 
+// USER DELETE REDUCER
+
+const userDeleteReducer = (state = {}, action) => {
+  switch (action.type) {
+    case UserActionTypes.USER_DELETE.REQUEST:
+      return { loading: true };
+
+    case UserActionTypes.USER_DELETE.SUCCESS:
+      return { loading: false, success: true };
+
+    case UserActionTypes.USER_DELETE.ERROR:
+      return { loading: false, error: action.payload };
+
+    case UserActionTypes.USER_DELETE.RESET:
+      return {};
+
+    default:
+      return state;
+  }
+};
+
 const userReducer = combineReducers({
   userLogin: userLoginReducer,
   userLoginChangeData: userLoginChangeDataReducer,
   userLoginChangePassword: userLoginChangePasswordReducer,
   userList: userListReducer,
+  userDelete: userDeleteReducer,
 });
 
 export default userReducer;
