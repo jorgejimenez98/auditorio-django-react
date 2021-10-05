@@ -77,7 +77,7 @@ function UserAdd({ history }) {
   });
 
   return (
-    <Fade bottom duration={1000} distance="40px">
+    <Fade duration={1000} distance="40px">
       <form onSubmit={formik.handleSubmit}>
         {error && <Message type="error" message={error} />}
 
