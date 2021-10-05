@@ -147,8 +147,6 @@ export const getUserList = () => async (dispatch, getState) => {
       userLogin: { userInfo },
     } = getState().user;
 
-    console.log(userInfo.token);
-
     const config = {
       headers: {
         "Content-Type": "application/json",
@@ -165,6 +163,42 @@ export const getUserList = () => async (dispatch, getState) => {
   } catch (error) {
     dispatch({
       type: UserActionTypes.USER_SHOW.ERROR,
+      payload:
+        error.response && error.response.data.detail
+          ? error.response.data.detail
+          : error.message,
+    });
+  }
+};
+
+export const deleteUsers = (items) => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: UserActionTypes.USER_DELETE.REQUEST,
+    });
+    const {
+      userLogin: { userInfo },
+    } = getState().user;
+
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
+
+    await axios.post(
+      `${defaultApi}/api/users/deleteSelectedUsers/`,
+      items,
+      config
+    );
+
+    dispatch({
+      type: UserActionTypes.USER_DELETE.SUCCESS,
+    });
+  } catch (error) {
+    dispatch({
+      type: UserActionTypes.USER_DELETE.ERROR,
       payload:
         error.response && error.response.data.detail
           ? error.response.data.detail
