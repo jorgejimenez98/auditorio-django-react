@@ -93,15 +93,61 @@ export const changePersonalData = (values) => async (dispatch, getState) => {
   }
 };
 
+export const changeUserLoginPassword =
+  (values) => async (dispatch, getState) => {
+    try {
+      dispatch({
+        type: UserActionTypes.USER_LOGIN_CHANGE_PASSWORD.REQUEST,
+      });
+      const {
+        userLogin: { userInfo },
+      } = getState().user;
 
-export const changeUserLoginPassword = (values) => async (dispatch, getState) => {
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${userInfo.token}`,
+        },
+      };
+
+      const { data } = await axios.put(
+        `${defaultApi}/users/updateUserPassword/`,
+        values,
+        config
+      );
+
+      // Update New User Profile
+      dispatch({
+        type: UserActionTypes.USER_LOGIN.SUCCESS,
+        payload: data,
+      });
+      localStorage.setItem("userInfo", JSON.stringify(data));
+
+      // Set a success message
+      dispatch({
+        type: UserActionTypes.USER_LOGIN_CHANGE_PASSWORD.SUCCESS,
+      });
+    } catch (error) {
+      dispatch({
+        type: UserActionTypes.USER_LOGIN_CHANGE_PASSWORD.ERROR,
+        payload:
+          error.response && error.response.data.detail
+            ? error.response.data.detail
+            : error.message,
+      });
+    }
+  };
+
+export const getUserList = () => async (dispatch, getState) => {
   try {
     dispatch({
-      type: UserActionTypes.USER_LOGIN_CHANGE_PASSWORD.REQUEST,
+      type: UserActionTypes.USER_SHOW.REQUEST,
     });
     const {
       userLogin: { userInfo },
     } = getState().user;
+
+    console.log(userInfo.token);
 
     const config = {
       headers: {
@@ -110,26 +156,15 @@ export const changeUserLoginPassword = (values) => async (dispatch, getState) =>
       },
     };
 
-    const { data } = await axios.put(
-      `${defaultApi}/users/updateUserPassword/`,
-      values,
-      config
-    );
+    const { data } = await axios.get(`${defaultApi}/api/users/`, config);
 
-    // Update New User Profile
     dispatch({
-      type: UserActionTypes.USER_LOGIN.SUCCESS,
+      type: UserActionTypes.USER_SHOW.SUCCESS,
       payload: data,
-    });
-    localStorage.setItem("userInfo", JSON.stringify(data));
-
-    // Set a success message
-    dispatch({
-      type: UserActionTypes.USER_LOGIN_CHANGE_PASSWORD.SUCCESS,
     });
   } catch (error) {
     dispatch({
-      type: UserActionTypes.USER_LOGIN_CHANGE_PASSWORD.ERROR,
+      type: UserActionTypes.USER_SHOW.ERROR,
       payload:
         error.response && error.response.data.detail
           ? error.response.data.detail
