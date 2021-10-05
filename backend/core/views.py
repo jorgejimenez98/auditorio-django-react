@@ -51,6 +51,19 @@ class UserViewSet(viewsets.ModelViewSet):
         except Exception as e:
             return Response({'detail': e.args[0]}, status=status.HTTP_400_BAD_REQUEST)
 
+    @action(methods=["POST"], detail=False)
+    def createUser(self, request, pk=None):
+        """ Method to create a new User """
+        data = request.data
+        try:
+            print(data)
+            return Response({'Users CREATED Successfully'}, status=status.HTTP_201_CREATED)
+        except IntegrityError:
+            message = f'Ya existe un usuario con el correo {data['email']}'
+            return Response({'detail': message}, status=status.HTTP_400_BAD_REQUEST)
+        except Exception as e:
+            return Response({'detail': e.args[0]}, status=status.HTTP_400_BAD_REQUEST)
+
 
 """ User Profile Methods """
 
