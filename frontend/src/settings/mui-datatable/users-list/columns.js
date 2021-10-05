@@ -70,7 +70,7 @@ export const columns = [
       download: false,
       customBodyRender: (value, tableMeta, updateValue) => {
         const userName = tableMeta.rowData[1];
-        const userId = tableMeta.rowData[0];
+        //const userId = tableMeta.rowData[0];
         return (
           <LinkContainer to={`#`}>
             <Tooltip title={`Editar Usuario: ${userName}`} placement="bottom">
