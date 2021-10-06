@@ -82,7 +82,7 @@ function UserList({ history }) {
   listOptions.customToolbar = () => {
     return (
       <AddButtomListHeader
-        addLink="/admin/users/form"
+        addLink="/admin/users/add"
         title="Insertar Usuario"
       />
     );
@@ -155,7 +155,7 @@ function UserList({ history }) {
         <Message type="error" message={error} />
       ) : (
         users && (
-          <Fade bottom duration={1000} distance="40px">
+          <Fade duration={1000} distance="40px">
             {/* Table */}
             <MUIDataTable
               title={`Listado de Usuarios (${users.length})`}

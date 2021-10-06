@@ -206,3 +206,100 @@ export const deleteUsers = (items) => async (dispatch, getState) => {
     });
   }
 };
+
+export const createUser = (values) => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: UserActionTypes.USER_CREATE.REQUEST,
+    });
+    const {
+      userLogin: { userInfo },
+    } = getState().user;
+
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
+
+    await axios.post(`${defaultApi}/api/users/createUser/`, values, config);
+
+    dispatch({
+      type: UserActionTypes.USER_CREATE.SUCCESS,
+    });
+  } catch (error) {
+    dispatch({
+      type: UserActionTypes.USER_CREATE.ERROR,
+      payload:
+        error.response && error.response.data.detail
+          ? error.response.data.detail
+          : error.message,
+    });
+  }
+};
+
+export const getUserDetails = (id) => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: UserActionTypes.USER_DETAILS.REQUEST,
+    });
+    const {
+      userLogin: { userInfo },
+    } = getState().user;
+
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
+
+    const { data } = await axios.get(`${defaultApi}/api/users/${id}/`, config);
+
+    dispatch({
+      type: UserActionTypes.USER_DETAILS.SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: UserActionTypes.USER_DETAILS.ERROR,
+      payload:
+        error.response && error.response.data.detail
+          ? error.response.data.detail
+          : error.message,
+    });
+  }
+};
+
+export const updateUser = (id, values) => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: UserActionTypes.USER_UPDATE.REQUEST,
+    });
+    const {
+      userLogin: { userInfo },
+    } = getState().user;
+
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
+
+    await axios.put(`${defaultApi}/api/users/${id}/updateUser/`, values, config);
+
+    dispatch({
+      type: UserActionTypes.USER_UPDATE.SUCCESS,
+    });
+  } catch (error) {
+    dispatch({
+      type: UserActionTypes.USER_UPDATE.ERROR,
+      payload:
+        error.response && error.response.data.detail
+          ? error.response.data.detail
+          : error.message,
+    });
+  }
+};

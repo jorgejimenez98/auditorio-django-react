@@ -121,12 +121,78 @@ const userDeleteReducer = (state = {}, action) => {
   }
 };
 
+// USER CREATE REDUCER
+
+const userCreateReducer = (state = {}, action) => {
+  switch (action.type) {
+    case UserActionTypes.USER_CREATE.REQUEST:
+      return { loading: true };
+
+    case UserActionTypes.USER_CREATE.SUCCESS:
+      return { loading: false, success: true };
+
+    case UserActionTypes.USER_CREATE.ERROR:
+      return { loading: false, error: action.payload };
+
+    case UserActionTypes.USER_CREATE.RESET:
+      return {};
+
+    default:
+      return state;
+  }
+};
+
+// USER DETAILS REDUCER
+
+const userDetailsReducer = (state = { user: {} }, action) => {
+  switch (action.type) {
+    case UserActionTypes.USER_DETAILS.REQUEST:
+      return { loading: true };
+
+    case UserActionTypes.USER_DETAILS.SUCCESS:
+      return { loading: false, user: action.payload };
+
+    case UserActionTypes.USER_DETAILS.ERROR:
+      return { loading: false, error: action.payload };
+
+    case UserActionTypes.USER_DETAILS.RESET:
+      return { user: {} };
+
+    default:
+      return state;
+  }
+};
+
+// USER UPDATE REDUCER
+
+const userUpdateReducer = (state = {}, action) => {
+  switch (action.type) {
+    case UserActionTypes.USER_UPDATE.REQUEST:
+      return { loading: true };
+
+    case UserActionTypes.USER_UPDATE.SUCCESS:
+      return { loading: false, success: true };
+
+    case UserActionTypes.USER_UPDATE.ERROR:
+      return { loading: false, error: action.payload };
+
+    case UserActionTypes.USER_UPDATE.RESET:
+      return {};
+
+    default:
+      return state;
+  }
+};
+
 const userReducer = combineReducers({
   userLogin: userLoginReducer,
-  userLoginChangeData: userLoginChangeDataReducer,
-  userLoginChangePassword: userLoginChangePasswordReducer,
   userList: userListReducer,
   userDelete: userDeleteReducer,
+  userCreate: userCreateReducer,
+  userDetails: userDetailsReducer,
+  userUpdate: userUpdateReducer,
+  userLoginChangeData: userLoginChangeDataReducer,
+  userLoginChangePassword: userLoginChangePasswordReducer,
 });
 
 export default userReducer;
