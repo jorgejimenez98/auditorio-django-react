@@ -20,6 +20,8 @@ import WorkOrderComponent from './views/work-order/work-order.component';
 import WorkSheetComponent from './views/work-sheet/work-sheet.component';
 import YearPlanComponent from './views/year-plan/year-plan.component';
 
+import YearPlanFormComponent from "./forms/year-plan/year-plan.form.component";
+
 const dashboardRoutes = [
   // SideBar Routes
   {
@@ -82,6 +84,14 @@ const dashboardRoutes = [
     path: "/user-list",
     name: "Listado de Usuarios",
     component: UserList,
+    icon: Person,
+    layout: "/admin",
+    sidebar: true,
+  },
+  {
+    path: "/test",
+    name: "Form testing",
+    component: YearPlanFormComponent,
     icon: Person,
     layout: "/admin",
     sidebar: true,
