@@ -22,7 +22,7 @@ import YearPlanComponent from "./views/year-plan/year-plan.component";
 import UserAdd from "./views/Users/UserAdd";
 import UserEdit from "./views/Users/UserEdit";
 
-import YearPlanFormComponent from "./forms/year-plan/year-plan.form.component";
+import YearPlanFormComponent from "./forms/forms/year-plan/year-plan.form.component";
 
 const dashboardRoutes = [
   // SideBar Routes
