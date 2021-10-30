@@ -3,9 +3,9 @@ from django.contrib import admin
 from django.urls import path
 from django.conf.urls import include
 # Router Imports
-from core.urls import router as userRouter
+from apps.core.urls import router as userRouter
 from apps.yearPlan.urls import router as yearPlanRouter
-from apps.workOder.urls import router as workOdersRouter
+from apps.workOrder.urls import router as workOdersRouter
 
 
 class DefaulRouter(routers.DefaultRouter):
@@ -23,5 +23,5 @@ urlpatterns = [
     # Api Urls
     path('api/', include(router.urls)),
     # Authentication Urls
-    path('', include('core.urls'))
+    path('', include('apps.core.urls'))
 ]
