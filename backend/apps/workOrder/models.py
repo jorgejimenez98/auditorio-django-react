@@ -27,13 +27,13 @@ class WorkOrder(models.Model):
     merchantSociety = models.BooleanField(default=False)
 
     def __str__(self):
-        return f"Work Order {self.datetime} - {self.noWO}"
+        return f"Work Order {self.id}"
 
 
 class Directive(models.Model):
     text = models.CharField(max_length=128, default="")
-    workOders = models.ForeignKey(
+    workOrders = models.ForeignKey(
         WorkOrder, on_delete=models.PROTECT, related_name='directives')
 
     def __str__(self):
-        return f'Directive {self.text}'
+        return self.text
