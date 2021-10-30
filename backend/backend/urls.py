@@ -4,6 +4,7 @@ from django.urls import path
 from django.conf.urls import include
 # Router Imports
 from core.urls import router as userRouter
+from apps.yearPlan.urls import router as yearPlanRouter
 
 
 class DefaulRouter(routers.DefaultRouter):
@@ -13,6 +14,7 @@ class DefaulRouter(routers.DefaultRouter):
 
 router = DefaulRouter()
 router.extend(userRouter)
+router.extend(yearPlanRouter)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
