@@ -3,4 +3,4 @@ from django.apps import AppConfig
 
 class YearplanConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'yearPlan'
+    name = 'apps.yearPlan'
