@@ -46,6 +46,8 @@ INSTALLED_APPS = [
     'rest_framework',
     # My Apps
     'core',
+    'apps.yearPlan',
+    'apps.workOrder',
 ]
 
 MIDDLEWARE = [
