@@ -1,6 +1,13 @@
 from rest_framework import serializers
 from .models import YearPlan
-from .apps.workOders.serializers import WorkOrderMiniSerializer
+from ..workOrder.serializers import WorkOrderMiniSerializer
+
+
+class YearPlanMiniSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = YearPlan
+        fields = ['id', 'year', 'cantidadAudit']
 
 
 class YearPlanSerializer(serializers.ModelSerializer):
