@@ -45,7 +45,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'rest_framework',
     # My Apps
-    'core',
+    'apps.core',
     'apps.yearPlan',
     'apps.workOrder',
 ]
