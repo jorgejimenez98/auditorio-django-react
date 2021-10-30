@@ -1,13 +1,12 @@
 from rest_framework import serializers
-from ...core.serializers import UserMiniSerializer
 from .models import WorkOrder, Directive
-
+from ..core.serializers import UserMiniSerializer
 
 class DirectiveSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Directive
-        fields = '__all__'
+        fields = ['text']
 
 
 class WorkOrderMiniSerializer(serializers.ModelSerializer):
@@ -19,7 +18,7 @@ class WorkOrderMiniSerializer(serializers.ModelSerializer):
 
 class WorkOrderSerializer(serializers.ModelSerializer):
     author = serializers.SerializerMethodField(read_only=True)
-    directives = serializers.SerializerMethodField(read_only=True)
+    directives = serializers.StringRelatedField(read_only=True, many=True)
 
     class Meta:
         model = WorkOrder
@@ -33,5 +32,5 @@ class WorkOrderSerializer(serializers.ModelSerializer):
         return serializer.data
 
     def get_directives(self, obj):
-        serializer = DirectiveSerializer(obj.directives.all())
+        serializer = DirectiveSerializer(obj.directives.all(), many=True)
         return serializer.data
