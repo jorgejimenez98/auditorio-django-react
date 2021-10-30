@@ -2,7 +2,7 @@ from django.db import models
 
 
 class YearPlan(models.Model):
-    year = models.PositiveIntegerField(default=0)
+    year = models.PositiveIntegerField(default=0, unique=True)
     cantidadAudit = models.PositiveSmallIntegerField(default=0)
     diasAudit = models.PositiveSmallIntegerField(default=0)
     diasFeriad = models.PositiveSmallIntegerField(default=0)
