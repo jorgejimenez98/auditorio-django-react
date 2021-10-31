@@ -11,7 +11,6 @@ export const yupOptions = {
         .email('Invalid email address')
         .required('Required'),
     password: Yup.string()
-        // .min(8, 'Password must be at least 8 characters long')
         .matches(
             /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
             "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and one special case Character"
