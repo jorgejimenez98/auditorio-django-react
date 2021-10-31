@@ -3,7 +3,9 @@ from django.contrib import admin
 from django.urls import path
 from django.conf.urls import include
 # Router Imports
-from core.urls import router as userRouter
+from apps.core.urls import router as userRouter
+from apps.yearPlan.urls import router as yearPlanRouter
+from apps.workOrder.urls import router as workOdersRouter
 
 
 class DefaulRouter(routers.DefaultRouter):
@@ -13,11 +15,13 @@ class DefaulRouter(routers.DefaultRouter):
 
 router = DefaulRouter()
 router.extend(userRouter)
+router.extend(yearPlanRouter)
+router.extend(workOdersRouter)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     # Api Urls
     path('api/', include(router.urls)),
     # Authentication Urls
-    path('', include('core.urls'))
+    path('', include('apps.core.urls'))
 ]

@@ -4,6 +4,12 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework import serializers
 
 
+class UserMiniSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = get_user_model()
+        fields = ['id', 'name']
+
+
 class UserSerializer(serializers.ModelSerializer):
     isAdmin = serializers.SerializerMethodField(read_only=True)
     rol = serializers.SerializerMethodField(read_only=True)
