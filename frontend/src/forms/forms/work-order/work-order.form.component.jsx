@@ -96,20 +96,15 @@ function WorkOrderFormComponent({ data = null }) {
             <Formik
                 initialValues={loadInitialValues()}
                 validationSchema={Yup.object({
-                    // yearPlan: yupOptions.firstName_r,
-                    // noWO: yupOptions.firstName_r,
-                    // criteria: yupOptions.firstName_r,
-                    // system: yupOptions.firstName_r,
-                    // auditType
-                    // staff: yupOptions.firstName_r,
-                    // entity: yupOptions.firstName_r,
-                    // subordinated: yupOptions.firstName_r,
-                    // address: yupOptions.firstName_r,
-                    // province: yupOptions.firstName_r,
-                    // municipality: yupOptions.firstName_r,
-                    // NAE: yupOptions.firstName_r,
-                    // FORG: yupOptions.firstName_r,
-                    // cubanStateEntrpSys: yupOptions.firstName_r,
+                    system: yupOptions.workOrder.system,
+                    auditType: yupOptions.workOrder.auditType,
+                    staff: yupOptions.workOrder.staff,
+                    subordinated: yupOptions.workOrder.subordinated,
+                    address: yupOptions.workOrder.address,
+                    province: yupOptions.workOrder.province,
+                    municipality: yupOptions.workOrder.municipality,
+                    NAE: yupOptions.workOrder.NAE,
+                    cubanStateEntrpSys: yupOptions.workOrder.cubanStateEntrpSys,
                 })}
                 onSubmit={(values, { setSubmitting, resetForm }) => {
                     handleSubmit(values)
@@ -137,13 +132,14 @@ function WorkOrderFormComponent({ data = null }) {
                             </Grid>
                             <Grid container item justifyContent='space-between' xs={12}>
                                 <Grid item sx={{ flex: '1 1 auto' }} >
-                                    <ButtonGroup variant='contained'>
+                                    <ButtonGroup>
                                         <Link to='/admin/work-order'>
                                             <Button>
                                                 Cancelar
                                             </Button>
                                         </Link>
                                         <Button
+                                            variant='contained'
                                             disabled={activeStep === 0}
                                             onClick={handleBack}
                                             sx={{ mr: 1 }}
@@ -231,6 +227,7 @@ function step(step, values) {
                                                 </Grid>
                                             ))}
                                         <Button
+                                            disabled={values.staff.length === 3}
                                             variant='contained'
                                             onClick={() => push('')}
                                         >
@@ -346,6 +343,7 @@ function step(step, values) {
                 <Grid container spacing={2}>
                     <Grid item xs={4}>
                         <CustomSelectComponent
+                            disabled
                             label="Plan anual"
                             name="yearPlan"
                             variant='standard'
@@ -357,6 +355,7 @@ function step(step, values) {
                     </Grid>
                     <Grid item xs={4}>
                         <CustomSelectComponent
+                            disabled
                             label="Numero de orden de trabajo"
                             name="noWO"
                             variant='standard'
