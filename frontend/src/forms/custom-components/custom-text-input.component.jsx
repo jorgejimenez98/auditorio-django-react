@@ -1,13 +1,18 @@
 import React from 'react';
 import {useField} from 'formik';
+import { TextField } from '@mui/material';
 
-const CustomTextInputComponent = ({label, ...props}) => {
+const CustomTextInputComponent = ({...props}) => {
     const [field, meta] = useField(props);
 
     return (
         <div>
-            <label htmlFor={props.id || props.name}>{label}</label>
-            <input className="text-input" {...field} {...props} />
+            <TextField 
+            className="text-input" 
+            {...field} 
+            {...props} 
+            fullWidth
+            />
             {meta.touched && meta.error ? (
                 <div className="error">{meta.error}</div>
             ) : null}

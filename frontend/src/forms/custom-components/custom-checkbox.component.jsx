@@ -1,14 +1,16 @@
 import React from 'react';
-import {useField} from 'formik';
+import { useField } from 'formik';
+import { Checkbox, FormControlLabel } from '@mui/material';
 
-const CustomCheckboxComponent = ({children, ...props}) => {
-    const [field, meta] = useField({...props, type: 'checkbox'});
+const CustomCheckboxComponent = ({label, ...props }) => {
+    const [field, meta] = useField({ ...props });
     return (
         <div>
-            <label className="checkbox-input">
-                <input type="checkbox" {...field} {...props} />
-                {children}
-            </label>
+            <FormControlLabel
+             label={label} 
+             fullWidth
+             control={<Checkbox {...field} {...props} />}/>
+            
             {meta.touched && meta.error ? (
                 <div className="error">{meta.error}</div>
             ) : null}
