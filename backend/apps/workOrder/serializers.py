@@ -25,8 +25,8 @@ class WorkOrderSerializer(serializers.ModelSerializer):
     class Meta:
         model = WorkOrder
         fields = ['id', 'dateTimeCreated', 'author', 'yearPlan', 'noWO', 'directives',
-                  'criteria', 'system', 'leader', 'auditor1', 'auditor2', 'entity',
-                  'subordinated', 'address', 'province', 'municipality', 'NAE', 'cubanStateEntrpSys', 'isPerfecting',
+                  'criteria', 'system', 'auditType', 'leader', 'auditor1', 'auditor2', 'entity',
+                  'subordinated', 'address', 'province', 'municipality', 'NAE', 'FORG', 'cubanStateEntrpSys', 'isPerfecting',
                   'merchantSociety', 'codNIT', 'codREEUP', 'actionType', 'unidadPress', 'cantAuditores', 'diasHabiles', 'startDate', 'endDate']
 
     def get_directives(self, obj):
