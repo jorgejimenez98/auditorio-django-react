@@ -9,6 +9,9 @@ import {
     MenuItem,
     Typography
 } from '@mui/material';
+
+import { yupOptions } from '../../../common/yup-option';
+
 import CustomTextInputComponent from '../../../custom-components/custom-text-input.component';
 import CustomSelectComponent from '../../../custom-components/custom-select.component';
 import { Link } from 'react-router-dom';
@@ -71,7 +74,9 @@ function InventoryFormComponent({ data = null }) {
             <Formik
                 initialValues={loadInitialValues()}
                 validationSchema={Yup.object({
-
+                    yearPlan: yupOptions.inventory.yearPlan,
+                    workOrder: yupOptions.inventory.workOrder,
+                    element: yupOptions.inventory.element,
                 })}
                 onSubmit={(values, { setSubmitting, resetForm }) => {
                     handleSubmit(values)
@@ -97,7 +102,7 @@ function InventoryFormComponent({ data = null }) {
                                     name="workOrder"
                                     variant='standard'
                                 >
-                                    <MenuItem value={'ot-1'}>ot-1</MenuItem>
+                                    <MenuItem value={1}>ot-1</MenuItem>
                                 </CustomSelectComponent>
                             </Grid>
                             <FieldArray name='element'>

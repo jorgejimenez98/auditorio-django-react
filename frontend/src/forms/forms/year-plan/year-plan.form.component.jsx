@@ -110,15 +110,17 @@ function YearPlanFormComponent({ data = null }) {
             <Formik
                 initialValues={loadInitialValues()}
                 validationSchema={Yup.object({
-                    //  cantidadAudit: Yup.number()
-                    //  .oneOf([1,2,3,4])
-                    //  .required(),
-                    //  diasAudit: Yup.number(),  
-                    //  diasFeriad: Yup.number(),  
-                    //  diasVacaciones: Yup.number(),  
-                    //  diasCapacitacion: Yup.number(),  
-                    //  diasReservas: Yup.number(),  
-                    //  controlInterno: Yup.number(),  
+                    year: yupOptions.yearPlan.year,
+                    // entidades: yupOptions.yearPlan.entidades,
+                    // codNIT: yupOptions.yearPlan.codNIT,
+                    // codREEUP: yupOptions.yearPlan.codREEUP,
+                    // diasHabiles: yupOptions.yearPlan.diasHabiles,
+                    diasAudit: yupOptions.yearPlan.diasAudit,
+                    diasFeriad: yupOptions.yearPlan.diasFeriad,
+                    diasVacaciones: yupOptions.yearPlan.diasVacaciones,
+                    diasCapacitacion: yupOptions.yearPlan.diasCapacitacion,
+                    diasReservas: yupOptions.yearPlan.diasReservas,
+                    controlInterno: yupOptions.yearPlan.controlInterno,
                 })}
                 onSubmit={(values, { setSubmitting, resetForm }) => {
                     handleSubmit(values)
@@ -263,8 +265,8 @@ function step(step, values, tab, changeTab) {
                                     </Grid>
                                     <Grid item xs={5}>
                                         <CustomCheckboxComponent
-                                            label="Particularidades"
-                                            name={`partic.${idx}`}
+                                            label="Unidad presupuestada"
+                                            name={`unidadPres.${idx}`}
                                             variant='standard'
                                         />
                                     </Grid>
