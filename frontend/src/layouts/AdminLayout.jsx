@@ -43,7 +43,7 @@ const switchRoutes = (
         }
         return null;
       })}
-      <Redirect from="/" to="/admin/dashboard" />
+      <Redirect from="/" to="/admin/year-plan" />
     </Switch>
   </React.Suspense>
 );

@@ -21,8 +21,10 @@ import WorkSheetComponent from "./views/work-sheet/work-sheet.component";
 import YearPlanComponent from "./views/year-plan/year-plan.component";
 import UserAdd from "./views/Users/UserAdd";
 import UserEdit from "./views/Users/UserEdit";
-
 import YearPlanFormComponent from "./forms/forms/year-plan/year-plan.form.component";
+import WorkOrderFormComponent from "./forms/forms/work-order/work-order.form.component";
+import InventoryFormComponent from "./forms/forms/work-sheet/inventory/inventory.form.component";
+
 
 const dashboardRoutes = [
   // SideBar Routes
@@ -32,7 +34,7 @@ const dashboardRoutes = [
     icon: Dashboard,
     component: DashboardPage,
     layout: "/admin",
-    sidebar: true,
+    sidebar: false,
   },
   {
     path: "/year-plan",
@@ -56,7 +58,7 @@ const dashboardRoutes = [
     component: FileComponent,
     icon: GiFullFolder,
     layout: "/admin",
-    sidebar: true,
+    sidebar: false,
   },
   {
     path: "/final-report",
@@ -64,7 +66,7 @@ const dashboardRoutes = [
     component: FinalReportComponent,
     icon: HiDocumentReport,
     layout: "/admin",
-    sidebar: true,
+    sidebar: false,
   },
   {
     path: "/deficiency-summary",
@@ -72,7 +74,7 @@ const dashboardRoutes = [
     component: DeficiencySummaryComponent,
     icon: BsGraphDown,
     layout: "/admin",
-    sidebar: true,
+    sidebar: false,
   },
   {
     path: "/work-sheet",
@@ -90,15 +92,28 @@ const dashboardRoutes = [
     layout: "/admin",
     sidebar: true,
   },
-  {
-    path: "/test",
-    name: "Form testing",
-    component: YearPlanFormComponent,
-    icon: Person,
-    layout: "/admin",
-    sidebar: true,
-  },
   // Other Routes
+  {
+    path: "/new/work-order",
+    name: "Nueva orden de trabajo",
+    component: WorkOrderFormComponent,
+    layout: "/admin",
+    sidebar: false,
+  },
+  {
+    path: "/new/year-plan",
+    name: "Nuevo plan anual",
+    component: YearPlanFormComponent,
+    layout: "/admin",
+    sidebar: false,
+  },
+  {
+    path: "/new/inventory",
+    name: "Nuevo inventario",
+    component: InventoryFormComponent,
+    layout: "/admin",
+    sidebar: false,
+  },
   {
     path: "/user-profile",
     name: "Perfíl de Usuario",
