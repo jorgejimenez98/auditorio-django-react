@@ -1,90 +1,90 @@
-import { WorkOrderActionTypes } from './work-order.types';
+import { inventoryActionTypes } from './inventory.types';
 
 const INITIAL_STATE = {
 }
 
-const workOrderReducer = (state = INITIAL_STATE, action) => {
+const inventoryReducer = (state = INITIAL_STATE, action) => {
     switch (action.type) {
-        // list
-        case WorkOrderActionTypes.LIST.REQUEST:
+        //list
+        case inventoryActionTypes.LIST.REQUEST:
             return {
                 ...state,
             }
 
-        case WorkOrderActionTypes.LIST.SUCCESS:
+        case inventoryActionTypes.LIST.SUCCESS:
             return {
                 ...state,
             }
 
-        case WorkOrderActionTypes.LIST.ERROR:
+        case inventoryActionTypes.LIST.ERROR:
             return {
                 ...state,
             }
 
-        case WorkOrderActionTypes.LIST.RESET:
+        case inventoryActionTypes.LIST.RESET:
             return {
                 ...state,
             }
 
         //create
-        case WorkOrderActionTypes.CREATE.REQUEST:
+        case inventoryActionTypes.CREATE.REQUEST:
             return {
                 ...state,
             }
 
-        case WorkOrderActionTypes.CREATE.SUCCESS:
+        case inventoryActionTypes.CREATE.SUCCESS:
             return {
                 ...state,
             }
 
-        case WorkOrderActionTypes.CREATE.ERROR:
+        case inventoryActionTypes.CREATE.ERROR:
             return {
                 ...state,
             }
 
-        case WorkOrderActionTypes.CREATE.RESET:
+        case inventoryActionTypes.CREATE.RESET:
             return {
                 ...state,
             }
 
         //update
-        case WorkOrderActionTypes.UPDATE.REQUEST:
+        case inventoryActionTypes.UPDATE.REQUEST:
             return {
                 ...state,
             }
 
-        case WorkOrderActionTypes.UPDATE.SUCCESS:
+        case inventoryActionTypes.UPDATE.SUCCESS:
             return {
                 ...state,
             }
 
-        case WorkOrderActionTypes.UPDATE.ERROR:
+        case inventoryActionTypes.UPDATE.ERROR:
             return {
                 ...state,
             }
 
-        case WorkOrderActionTypes.UPDATE.RESET:
+        case inventoryActionTypes.UPDATE.RESET:
             return {
                 ...state,
             }
 
         //delete
-        case WorkOrderActionTypes.DELETE.REQUEST:
+        case inventoryActionTypes.DELETE.REQUEST:
             return {
                 ...state,
             }
 
-        case WorkOrderActionTypes.DELETE.SUCCESS:
+        case inventoryActionTypes.DELETE.SUCCESS:
             return {
                 ...state,
             }
 
-        case WorkOrderActionTypes.DELETE.ERROR:
+        case inventoryActionTypes.DELETE.ERROR:
             return {
                 ...state,
             }
 
-        case WorkOrderActionTypes.DELETE.RESET:
+        case inventoryActionTypes.DELETE.RESET:
             return {
                 ...state,
             }
@@ -94,5 +94,5 @@ const workOrderReducer = (state = INITIAL_STATE, action) => {
     }
 }
 
-export default workOrderReducer;
+export default inventoryReducer;
 
