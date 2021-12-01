@@ -16,7 +16,17 @@ const listWorkOrder = () => async (dispatch, getState) => {
 
 const createWorkOrder = () => {};
 const updateWorkOrder = () => {};
-const deleteWorkOrder = () => {};
+
+const deleteWorkOrder = (rows) => async (dispatch, getState) => {
+  try {
+    reduxFunc.request(dispatch, WorkOrderActionTypes.DELETE.REQUEST);
+    const config = reduxFunc.config(getState)
+    const { data } = await axios.post(`${urls.workOrder}deleteWorkOrders/`, rows, config);
+    reduxFunc.success(dispatch, WorkOrderActionTypes.DELETE.SUCCESS, data);
+  } catch (error) {
+    reduxFunc.error(dispatch, WorkOrderActionTypes.DELETE.ERROR, error);
+  }
+};
 
 const workOrderActions = {
   list: listWorkOrder,
