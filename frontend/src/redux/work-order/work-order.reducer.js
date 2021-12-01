@@ -11,6 +11,11 @@ const INITIAL_STATE = {
     loading: false,
     success: false,
     error: null,
+  },
+  details: {
+    loading: false,
+    workOrder: {},
+    error: null,
   }
 };
 
@@ -68,6 +73,45 @@ const createReducer = (state = INITIAL_STATE, action) => {
     case WorkOrderActionTypes.CREATE.RESET:
       return {
         ...state,
+      };
+
+    default:
+      return state;
+  }
+};
+
+const detailsReducer = (state = INITIAL_STATE.details, action) => {
+  switch (action.type) {
+    case WorkOrderActionTypes.DETAILS.REQUEST:
+      return {
+        ...state,
+        loading: true,
+        workOrder: {},
+        error: null,
+      };
+
+    case WorkOrderActionTypes.DETAILS.SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        workOrder: action.payload,
+        error: null,
+      };
+
+    case WorkOrderActionTypes.DETAILS.ERROR:
+      return {
+        ...state,
+        loading: false,
+        workOrder: {},
+        error: action.payload,
+      };
+
+    case WorkOrderActionTypes.DETAILS.RESET:
+      return {
+        ...state,
+        loading: false,
+        workOrder: {},
+        error: null,
       };
 
     default:
@@ -172,6 +216,7 @@ const workOrderReducer = combineReducers({
   delete: deleteReducer,
   show: showReducer,
   list: listReducer,
+  details: detailsReducer,
 });
 
 export default workOrderReducer;
