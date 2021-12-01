@@ -7,6 +7,11 @@ const INITIAL_STATE = {
     loading: false,
     error: null,
   },
+  delete: {
+    loading: false,
+    success: false,
+    error: null,
+  }
 };
 
 const listReducer = (state = INITIAL_STATE.list, action) => {
@@ -97,26 +102,36 @@ const updateReducer = (state = INITIAL_STATE, action) => {
   }
 };
 
-const deleteReducer = (state = INITIAL_STATE, action) => {
+const deleteReducer = (state = INITIAL_STATE.delete, action) => {
   switch (action.type) {
     case WorkOrderActionTypes.DELETE.REQUEST:
       return {
         ...state,
+        loading: true,
+        success: false,
+        error: null
       };
 
     case WorkOrderActionTypes.DELETE.SUCCESS:
       return {
         ...state,
+        loading: false,
+        success: true,
+        error: null
       };
 
     case WorkOrderActionTypes.DELETE.ERROR:
       return {
         ...state,
+        loading: false,
+        success: false,
+        error: action.payload
       };
 
     case WorkOrderActionTypes.DELETE.RESET:
       return {
         ...state,
+        ...INITIAL_STATE.delete
       };
 
     default:
@@ -154,7 +169,7 @@ const showReducer = (state = INITIAL_STATE, action) => {
 const workOrderReducer = combineReducers({
   create: createReducer,
   update: updateReducer,
-  report: deleteReducer,
+  delete: deleteReducer,
   show: showReducer,
   list: listReducer,
 });
