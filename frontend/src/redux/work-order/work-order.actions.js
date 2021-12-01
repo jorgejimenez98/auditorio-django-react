@@ -28,11 +28,24 @@ const deleteWorkOrder = (rows) => async (dispatch, getState) => {
   }
 };
 
+const detailsWorkOrder = (id) => async (dispatch, getState) => {
+  try {
+    reduxFunc.request(dispatch, WorkOrderActionTypes.DETAILS.REQUEST);
+    const config = reduxFunc.config(getState)
+    const { data } = await axios.get(`${urls.workOrder}${id}/`, config);
+    console.log('Data', data)
+    reduxFunc.success(dispatch, WorkOrderActionTypes.DETAILS.SUCCESS, data);
+  } catch (error) {
+    reduxFunc.error(dispatch, WorkOrderActionTypes.DETAILS.ERROR, error);
+  }
+};
+
 const workOrderActions = {
   list: listWorkOrder,
   create: createWorkOrder,
   update: updateWorkOrder,
   delete: deleteWorkOrder,
+  details: detailsWorkOrder,
 };
 
 export default workOrderActions;
