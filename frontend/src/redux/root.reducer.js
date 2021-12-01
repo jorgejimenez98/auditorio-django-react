@@ -5,7 +5,7 @@ import deficiencySummaryReducer from './deficiency-summary/deficiency-summary.re
 import fileReducer from './file/file.reducer';
 import finalReportReducer from './final-report/final-report.reducer';
 import workOrderReducer from './work-order/work-order.reducer';
-import inventoryReducer from './work-sheet/inventory/inventory.reducer';
+import inventoryReducers from './work-sheet/inventory/inventory.reducer';
 import yearPlanReducer from './year-plan/year-plan.reducer';
 
 export default combineReducers({
@@ -15,6 +15,6 @@ export default combineReducers({
   file: fileReducer,
   finalReport: finalReportReducer,
   workOrder: workOrderReducer,
-  inventory: inventoryReducer,
+  inventory: inventoryReducers,
   yearPlan: yearPlanReducer,
 });

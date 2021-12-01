@@ -1,3 +1,48 @@
+/* [
+    {
+        "author": "Juan Perez",
+        "yearPlan": {
+            "id": 2,
+            "year": 2021
+        },
+        "workOrder": {
+            "id": 1,
+            "noWO": 5
+        },
+        "dateTimeCreate": "2021-11-29 - 22:29:15",
+        "inventoryItems": [
+            {
+                "id": 1,
+                "sContCant": 1,
+                "sContTotal": 1,
+                "sSubCant": 1,
+                "sSubPrice": 1,
+                "sTeCant": 1,
+                "sTeTotal": 1,
+                "um": "asd",
+                "code": "asd",
+                "description": "asdasd",
+                "diff": 2,
+                "inventory": 1
+            },
+            {
+                "id": 2,
+                "sContCant": 1,
+                "sContTotal": 2,
+                "sSubCant": 1,
+                "sSubPrice": 2,
+                "sTeCant": 2,
+                "sTeTotal": 2,
+                "um": "asd",
+                "code": "asd",
+                "description": "asd",
+                "diff": 1,
+                "inventory": 1
+            }
+        ]
+    },
+] */
+
 const columns = [
     // yearPlan entity subordinated codNIT codREEUP
     // startDate endDate 
