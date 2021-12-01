@@ -47,15 +47,15 @@ class WorkOrderViewSet(viewsets.ModelViewSet):
         except Exception as e:
             return Response({'detail': e.args[0]}, status=status.HTTP_400_BAD_REQUEST)
 
-
-    @action(methods=['PUT'], detail=True) # /api/workOrders/1/updateWorOrder/
+    @action(methods=['PUT'], detail=True)  # /api/workOrders/1/updateWorOrder/
     def updateWorOrder(self, request, pk):
         data = request.data
         try:
             # Get work Order
             workOrder = WorkOrder.objects.get(pk=pk)
             workOrder.author = data.get('author')
-            workOrder.yearPlan = YearPlan.objects.get(pk=int(data.get('yearPlanId')))
+            workOrder.yearPlan = YearPlan.objects.get(
+                pk=int(data.get('yearPlanId')))
             workOrder.noWO = int(data.get('noWO'))
             workOrder.criteria = data.get('criteria')
             workOrder.system = data.get('system')
@@ -78,12 +78,17 @@ class WorkOrderViewSet(viewsets.ModelViewSet):
         except Exception as e:
             return Response({'detail': e.args[0]}, status=status.HTTP_400_BAD_REQUEST)
 
-
-    @action(methods=['POST'], detail=True) 
-    def deleteWorkOrders(self, request, pk):
+    @action(methods=['POST'], detail=False)
+    def deleteWorkOrders(self, request):
         data = request.data
         try:
-            print(data)
+            for wo in data:
+                workOrder = WorkOrder.objects.get(pk=int(wo.get('id')))
+                """ Delete First all directives """
+                for directive in workOrder.directives.all():
+                    directive.delete()
+                """ Delete work Order """
+                workOrder.delete()
             # Return Response
             message = 'Work Orders Deleted Successfully'
             return Response({'message': message}, status=status.HTTP_200_OK)
