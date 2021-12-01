@@ -35,3 +35,27 @@ class WorkOrderSerializer(serializers.ModelSerializer):
 
     def get_yearPlan(self, obj):
         return obj.yearPlan.year
+
+
+class WorkOrderDetailsSerializer(serializers.ModelSerializer):
+    yearPlan = serializers.SerializerMethodField(read_only=True)
+    staff = serializers.SerializerMethodField(read_only=True)
+
+    class Meta:
+        model = WorkOrder
+        fields = ['id', 'author', 'yearPlan', 'noWO',
+                  'criteria', 'system', 'auditType', 'staff', 'entity',
+                  'subordinated', 'address', 'province', 'municipality', 'NAE', 'FORG', 'cubanStateEntrpSys', 'isPerfecting',
+                  'merchantSociety', 'codNIT', 'codREEUP', 'actionType', 'unidadPress', 'cantAuditores', 'diasHabiles', 'startDate', 'endDate']
+
+    def get_yearPlan(self, obj):
+        return obj.yearPlan.year
+
+    def get_staff(self, obj):
+        if len(obj.leader) == 0 and len(obj.auditor1) == 0 and len(obj.auditor2) == 0:
+            return [""]
+        return [
+            obj.leader,
+            obj.auditor1,
+            obj.auditor2
+        ]
