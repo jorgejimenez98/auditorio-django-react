@@ -5,7 +5,7 @@ from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from apps.extraPermissions import IsAuditor
 from apps.yearPlan.models import YearPlan
-from .serializers import WorkOrderMiniSerializer, WorkOrderSerializer, WorkOrder
+from .serializers import WorkOrderMiniSerializer, WorkOrderSerializer, WorkOrder, WorkOrderDetailsSerializer
 from .models import Directive
 from apps.errorMessages import *
 
@@ -14,6 +14,9 @@ class WorkOrderViewSet(viewsets.ModelViewSet):
     queryset = WorkOrder.objects.all().order_by('-pk')
     serializer_class = WorkOrderSerializer
     permission_classes = [IsAuthenticated, IsAuditor]
+
+    def retrieve(self, request, *args, **kwargs):
+        return Response(WorkOrderDetailsSerializer(self.get_object(), many=False).data, status=status.HTTP_200_OK)
 
     @action(methods=['POST'], detail=False)
     def createWorkOrder(self, request):
