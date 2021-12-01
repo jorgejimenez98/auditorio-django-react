@@ -94,8 +94,8 @@ const dashboardRoutes = [
   },
   // Other Routes
   {
-    path: "/new/work-order",
-    name: "Nueva orden de trabajo",
+    path: "/word-order/edit/:workOrderId",
+    name: "Editar orden de trabajo",
     component: WorkOrderFormComponent,
     layout: "/admin",
     sidebar: false,
