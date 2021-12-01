@@ -1,6 +1,5 @@
 from django.contrib.auth import get_user_model
 from django.db import IntegrityError
-from django.contrib.auth.hashers import make_password
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework.response import Response
@@ -58,14 +57,14 @@ class UserViewSet(viewsets.ModelViewSet):
         try:
             user = get_user_model()
             user.objects.create_user(
-                name=data.get('name'),
                 email=data.get('email'),
+                password=data.get('newPassword'),
+                name=data.get('name'),
                 is_staff=data.get('rol') == 'isAdmin',
                 isBoosWorkOrder=data.get('rol') == 'isBoosWorkOrder',
                 isBoosPlan=data.get('rol') == 'isBoosPlan',
                 isAuditor=data.get('rol') == 'isAuditor',
-                password=make_password(data.get('password'))
-            )
+            ) 
             return Response({'Users CREATED Successfully'}, status=status.HTTP_201_CREATED)
         except IntegrityError:
             message = f"Ya existe un usuario con el correo {data.get('email')}"
@@ -100,7 +99,6 @@ class UserViewSet(viewsets.ModelViewSet):
             message = f"Ya existe un usuario con el correo {data.get('email')}"
             return Response({'detail': message}, status=status.HTTP_400_BAD_REQUEST)
         except Exception as e:
-            print(e)
             return Response({'detail': e.args[0]}, status=status.HTTP_400_BAD_REQUEST)
 
 
