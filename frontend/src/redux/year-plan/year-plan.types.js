@@ -16,7 +16,7 @@ const Delete={
     ERROR:'YEAR_PLAN_DELETE_ERROR',
     RESET:'YEAR_PLAN_DELETE_RESET',
 }
-const Show={
+const Details={
     REQUEST:'YEAR_PLAN_SHOW_REQUEST',
     SUCCESS:'YEAR_PLAN_SHOW_SUCCESS',
     ERROR:'YEAR_PLAN_SHOW_ERROR',
@@ -33,6 +33,6 @@ export const YearPlanActionTypes = {
     CREATE: Create,
     UPDATE: Update,
     DELETE: Delete,
-    SHOW: Show,
+    DETAILS: Details,
     LIST: List,
 }

@@ -1,3 +1,8 @@
+import { Edit } from "@material-ui/icons";
+
+import { Tooltip, IconButton } from '@mui/material';
+import { LinkContainer } from "react-router-bootstrap";
+
 const columns = [
     // ano cantidadAudit diasAudit diasFeriad diasVacaciones
     // diasCapacitacion diasReservas controlInterno
@@ -69,6 +74,18 @@ const columns = [
             print: false,
             searchable: false,
             viewColumns: false,
+            customBodyRender: (value, tableMeta) => {
+                const id = tableMeta.rowData[0];
+                return (
+                    <LinkContainer to={`/admin/yearPlan/edit/${id}`}>
+                        <Tooltip title="Editar Plan Anual">
+                            <IconButton>
+                                <Edit />
+                            </IconButton>
+                        </Tooltip>
+                    </LinkContainer>
+                );
+            },
         }
     },
 ];

@@ -183,38 +183,10 @@ const deleteReducer = (state = INITIAL_STATE.delete, action) => {
   }
 };
 
-const showReducer = (state = INITIAL_STATE, action) => {
-  switch (action.type) {
-    case WorkOrderActionTypes.SHOW.REQUEST:
-      return {
-        ...state,
-      };
-
-    case WorkOrderActionTypes.SHOW.SUCCESS:
-      return {
-        ...state,
-      };
-
-    case WorkOrderActionTypes.SHOW.ERROR:
-      return {
-        ...state,
-      };
-
-    case WorkOrderActionTypes.SHOW.RESET:
-      return {
-        ...state,
-      };
-
-    default:
-      return state;
-  }
-};
-
 const workOrderReducer = combineReducers({
   create: createReducer,
   update: updateReducer,
   delete: deleteReducer,
-  show: showReducer,
   list: listReducer,
   details: detailsReducer,
 });

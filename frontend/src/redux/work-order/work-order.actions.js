@@ -14,8 +14,8 @@ const listWorkOrder = () => async (dispatch, getState) => {
   }
 };
 
-const createWorkOrder = () => {};
-const updateWorkOrder = () => {};
+const createWorkOrder = () => { };
+const updateWorkOrder = () => { };
 
 const deleteWorkOrder = (rows) => async (dispatch, getState) => {
   try {
