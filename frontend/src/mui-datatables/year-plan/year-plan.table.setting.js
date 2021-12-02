@@ -7,7 +7,7 @@ const columns = [
     // ano cantidadAudit diasAudit diasFeriad diasVacaciones
     // diasCapacitacion diasReservas controlInterno
     {
-        name: "ano",
+        name: "year",
         label: "Ano",
         options: {
             hint: '',
