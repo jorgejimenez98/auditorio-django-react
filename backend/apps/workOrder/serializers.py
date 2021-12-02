@@ -14,7 +14,7 @@ class WorkOrderMiniSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = WorkOrder
-        fields = ['id', 'entity', 'codNIT', 'codREEUP', 'actionType',
+        fields = ['id', 'entity', "noWO", 'codNIT', 'codREEUP', 'actionType',
                   'unidadPress', 'cantAuditores', 'diasHabiles', 'startDate']
 
 
