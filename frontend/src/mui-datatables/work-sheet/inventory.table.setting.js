@@ -61,7 +61,7 @@ const columns = [
         }
     },
     {
-        name: "UM",
+        name: "um",
         label: "Unidad de medida",
         options: {
             hint: '',
@@ -69,14 +69,14 @@ const columns = [
         }
     },
     {
-        name: "SSubCant",
+        name: "sSubCant",
         label: "Cantidad segun submayor",
         options: {
             hint: '',
         }
     },
     {
-        name: "SSubPrice",
+        name: "sSubPrice",
         label: "Precio segun submayor",
         options: {
             hint: '',
@@ -84,7 +84,7 @@ const columns = [
         }
     },
     {
-        name: "SSubImport",
+        name: "sSubImport",
         label: "Importe segun submayor",
         options: {
             hint: '',
@@ -92,14 +92,14 @@ const columns = [
         }
     },
     {
-        name: "STECant",
+        name: "sTeCant",
         label: "Cantidad segun tarjeta de estiba",
         options: {
             hint: '',
         }
     },
     {
-        name: "STETotal",
+        name: "sTeTotal",
         label: "Total segun tarjeta de estiba",
         options: {
             hint: '',
@@ -107,14 +107,14 @@ const columns = [
         }
     },
     {
-        name: "SContCant",
+        name: "sContCant",
         label: "Cantidad segun conteo",
         options: {
             hint: '',
         }
     },
     {
-        name: "SContTotal",
+        name: "sContTotal",
         label: "Total segun conteo",
         options: {
             hint: '',
@@ -122,7 +122,7 @@ const columns = [
         }
     },
     {
-        name: "dif",
+        name: "diff",
         label: "Diferencia",
         options: {
             hint: '',
