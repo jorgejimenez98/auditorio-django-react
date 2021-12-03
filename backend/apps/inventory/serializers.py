@@ -14,7 +14,7 @@ class InventorySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Inventory
-        fields = ['author', 'yearPlan', 'workOrder', 'dateTimeCreate', 'inventoryItems']
+        fields = ["id", 'author', 'yearPlan', 'workOrder', 'dateTimeCreate', 'inventoryItems']
     
     def get_yearPlan(self, obj):
         return {'id': obj.yearPlan.pk, 'year': obj.yearPlan.year}
