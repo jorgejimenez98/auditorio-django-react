@@ -31,12 +31,11 @@ const steps = [
   "Datos de Entidad",
 ];
 
-function WorkOrderFormComponent({match, history }) {
+function WorkOrderFormComponent({ match, history }) {
   const workOrderId = match.params.workOrderId;
   const dispatch = useDispatch();
 
   const [activeStep, setActiveStep] = React.useState(0);
-  const today = new Date();
   const author = useSelector((state) => state.user.userLogin).userInfo.name;
 
   // USER INFO Selector
@@ -46,47 +45,6 @@ function WorkOrderFormComponent({match, history }) {
   const { loading, error, workOrder } = useSelector(
     (state) => state.workOrder.details
   );
-
-
-  console.log('workOrder', workOrder);
-  /* 
-  {
-    "id": 10,
-    "dateTimeCreated": "2021-12-01 - 15:06:37",
-    "author": "Juan",
-    "yearPlan": 2022,
-    "noWO": 0,
-    "directives": [
-        "Directiva 1",
-        "Directiva 2"
-    ],
-    "criteria": "",
-    "system": "",
-    "auditType": "",
-    "leader": "",
-    "auditor1": "",
-    "auditor2": "",
-    "entity": "",
-    "subordinated": "",
-    "address": "",
-    "province": "",
-    "municipality": "",
-    "NAE": "",
-    "FORG": false,
-    "cubanStateEntrpSys": "",
-    "isPerfecting": false,
-    "merchantSociety": false,
-    "codNIT": "Cod niit",
-    "codREEUP": "Cod reeep",
-    "actionType": "Accion 1",
-    "unidadPress": false,
-    "cantAuditores": 4,
-    "diasHabiles": 30,
-    "startDate": "2021-12-30",
-    "endDate": "2022-01-29"
-}
-  
-  */
 
   useEffect(() => {
     if (!userInfo) {
@@ -104,15 +62,12 @@ function WorkOrderFormComponent({match, history }) {
     if (workOrder !== {}) {
       return {
         ...workOrder,
-        date: today.toLocaleDateString(),
-        time: today.toLocaleTimeString(),
         author: author,
       };
     } else {
       return {
         // meta values
-        date: today.toLocaleDateString(),
-        time: today.toLocaleTimeString(),
+
         author: author,
         // step 1
         yearPlan: 2021, // plan anual al que pertenece(objeto, opciones)
@@ -154,7 +109,25 @@ function WorkOrderFormComponent({match, history }) {
   };
 
   const handleSubmit = (values) => {
-    alert(JSON.stringify(values, null, 2));
+    dispatch(workOrderActions.update({
+      yearPlanId: values.yearPlanId,
+      noWO: values.noWO,
+      author: author,
+      entity: values.entity,
+      criteria: values.criteria,
+      system: values.system,
+      auditType: values.auditType,
+      staff: values.staff,
+      subordinated: values.subordinated,
+      address: values.address,
+      province: values.province,
+      municipality: values.municipality,
+      NAE: values.NAE,
+      FORG: values.FORG,
+      cubanStateEntrpSys: values.cubanStateEntrpSys,
+      isPerfecting: values.isPerfecting,
+      merchantSociety: values.merchantSociety,
+    }, workOrderId))
   };
 
   return (

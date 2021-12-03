@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import * as Yup from 'yup';
 import { Form, Formik } from 'formik';
 import {
@@ -26,15 +26,19 @@ import CustomSelectComponent from '../../custom-components/custom-select.compone
 import CustomDatePickerComponent from '../../custom-components/custom.datepicker.component';
 import CustomCheckboxComponent from '../../custom-components/custom-checkbox.component';
 import { Link } from 'react-router-dom';
+import yearPlanActions from '../../../redux/year-plan/year-plan.actions';
 
 const steps = ['Seleccionar Plan Anual', 'Datos de auditoria(s)', 'Anexo'];
 
 function YearPlanFormComponent({ data = null }) {
+    const dispatch = useDispatch();
     const [activeStep, setActiveStep] = React.useState(0);
     const [tab, setTab] = useState('1');
     const today = new Date();
     const author = useSelector((state) => state.user.userLogin).userInfo.name;
-
+    const { success } = useSelector(state => state.yearPlan.create)
+    
+    console.log(success)
 
     const loadInitialValues = () => {
         if (data) {
@@ -102,7 +106,20 @@ function YearPlanFormComponent({ data = null }) {
     }
 
     const handleSubmit = (values) => {
-        alert(JSON.stringify(values, null, 2))
+        dispatch(yearPlanActions.create({
+            year: values.year,
+            author: values.author,
+            cantidadAudit: values.cantidadAudit,
+            diasAudit: values.diasAudit,
+            diasFeriad: values.diasFeriad,
+            diasVacaciones: values.diasVacaciones,
+            diasCapacitacion: values.diasCapacitacion,
+            diasReservas: values.diasReservas,
+            controlInterno: values.controlInterno,
+        }))
+
+        console.log('handle submit')
+
     }
 
     return (
@@ -351,6 +368,7 @@ function step(step, values, tab, changeTab) {
                             label='Ano'
                             name='year'
                             variant='standard'
+                            type='number'
                         />
                     </Grid>
                     <Grid item xs={4}>

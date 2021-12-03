@@ -131,10 +131,10 @@ export const yupOptions = {
     },
     inventory: {
         yearPlan: Yup
-            .number()
+            .object()
             .required(),
         workOrder: Yup
-            .number()
+            .object()
             .required(),
         element: Yup
             .object()

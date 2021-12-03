@@ -20,6 +20,7 @@ function WorkSheetComponent({ history }) {
   const dispatch = useDispatch();
   const [yearPlan, setyearPlan] = useState()
   const [workOrder, setWorkOrder] = useState()
+  const [inv, setInv] = useState()
   const [list, setlist] = useState([])
   // USER INFO Selector
   const { userInfo } = useSelector((state) => state.user.userLogin);
@@ -27,7 +28,6 @@ function WorkSheetComponent({ history }) {
   // INVENTORY LIST SELECTOR
   const { loading: loadInv, list: listInv, error: errorInv } = useSelector((state) => state.inventory.list);
   const { loading: loadYear, list: listYear, error: errorYear } = useSelector((state) => state.yearPlan.list);
-  const { loading: loadWork, list: listWork, error: errorWork } = useSelector((state) => state.workOrder.list);
 
   useEffect(() => {
     if (!userInfo) {
@@ -50,30 +50,19 @@ function WorkSheetComponent({ history }) {
     setyearPlan(event.target.value);
   };
   const handleChangeWork = (event) => {
+    const WO = event.target.value;
     setWorkOrder(event.target.value);
+
     listInv.forEach((inv, idx) => {
-      if (inv.workOrder.noWO === workOrder.noWO) {
+      if (inv.workOrder.id === WO.id) {
         setlist(inv.inventoryItems);
+        setInv(inv)
         return;
       };
     });
   }
-  // console.log('@@@@@@@@@@@@@@@@@@@ listInv @@@@@@@@@@@@@@@@')
-  // console.log(listInv)
-  // console.log('@@@@@@@@@@@@@@@@@ listWork @@@@@@@@@@@@@@@@')
-  // console.log(listWork)
-  // console.log('@@@@@@@@@@@@@@@@@@@@ listYear @@@@@@@@@@@@')
-  // console.log(listYear)
-  // console.log('@@@@@@@@@@@@@@@@@@@@ selectYear @@@@@@@@@@@@')
-  // console.log(yearPlan)
 
-  console.log('@@@@@@@@@@@@ year @@@@@@@@@@@@@@@@@@@@@');
-  console.log(yearPlan);
-  console.log('@@@@@@@@@@@@ work @@@@@@@@@@@@@@@@@@@@@');
-  console.log(workOrder);
-  console.log('@@@@@@@@@@@@ list @@@@@@@@@@@@@@@@@@@@@');
-  console.log(list);
-
+  console.log(inv)
 
   const content = () => {
     switch (type) {
@@ -97,10 +86,6 @@ function WorkSheetComponent({ history }) {
         <Loader />
       ) : errorInv ? (
         <Message type="error" message={errorInv} />
-      ) : loadWork ? (
-        <Loader />
-      ) : errorWork ? (
-        <Message type="error" message={errorWork} />
       ) : loadYear ? (
         <Loader />
       ) : errorYear ? (
@@ -134,7 +119,7 @@ function WorkSheetComponent({ history }) {
               <Select
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
-                value={yearPlan ? yearPlan.year : ''}
+                value={yearPlan ? yearPlan : ''}
                 label="Tipo de plantilla"
                 onChange={handleChangeYear}
               >
@@ -154,7 +139,7 @@ function WorkSheetComponent({ history }) {
                 <Select
                   labelId="demo-simple-select-label"
                   id="demo-simple-select"
-                  value={workOrder ? `OT-${workOrder.noWO}` : ''}
+                  value={workOrder ? workOrder : ''}
                   label="Tipo de plantilla"
                   onChange={handleChangeWork}
                 >
@@ -170,6 +155,15 @@ function WorkSheetComponent({ history }) {
                 Nuevo
               </Button>
             </Link>
+          </Grid>
+          <Grid item>
+            <Button
+              variant="contained"
+              color="error"
+              onClick={() => dispatch(inventoryActions.delete(inv.id))}
+              disabled={inv ? false : true}>
+              Eliminar
+            </Button>
           </Grid>
         </Grid>
       )
