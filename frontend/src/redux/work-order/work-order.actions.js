@@ -14,8 +14,18 @@ const listWorkOrder = () => async (dispatch, getState) => {
   }
 };
 
-const createWorkOrder = () => { };
-const updateWorkOrder = () => { };
+const createWorkOrder = () => async (dispatch, getState) => { };
+
+const updateWorkOrder = (values, id) => async (dispatch, getState) => {
+  try {
+    reduxFunc.request(dispatch, WorkOrderActionTypes.UPDATE.REQUEST);
+    const config = reduxFunc.config(getState)
+    const { data } = await axios.put(`${urls.workOrder}${id}/updateWorOrder/`, config);
+    reduxFunc.success(dispatch, WorkOrderActionTypes.UPDATE.SUCCESS, data);
+  } catch (error) {
+    reduxFunc.error(dispatch, WorkOrderActionTypes.UPDATE.ERROR, error);
+  }
+};
 
 const deleteWorkOrder = (rows) => async (dispatch, getState) => {
   try {

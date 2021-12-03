@@ -14,9 +14,30 @@ const listInventory = () => async (dispatch, getState) => {
   }
 };
 
-const createInventory = () => {};
-const updateInventory = () => {};
-const deleteInventory = () => {};
+const createInventory = (values) => async (dispatch, getState) => {
+  try {
+    reduxFunc.request(dispatch, inventoryActionTypes.CREATE.REQUEST);
+    const config = reduxFunc.config(getState)
+    const { data } = await axios.post(`${urls.inventory}createInventory/`, values, config);
+    reduxFunc.success(dispatch, inventoryActionTypes.CREATE.SUCCESS, data);
+  } catch (error) {
+    reduxFunc.error(dispatch, inventoryActionTypes.CREATE.ERROR, error);
+  }
+};
+
+const updateInventory = () => async (dispatch, getState) => { };
+
+const deleteInventory = (id) => async (dispatch, getState) => {
+  try {
+    reduxFunc.request(dispatch, inventoryActionTypes.DELETE.REQUEST);
+    const config = reduxFunc.config(getState)
+    const { data } = await axios.delete(`${urls.inventory}deleteInventory/${id}`, config);
+    reduxFunc.success(dispatch, inventoryActionTypes.DELETE.SUCCESS, data);
+  } catch (error) {
+    reduxFunc.error(dispatch, inventoryActionTypes.DELETE.ERROR, error);
+  }
+
+};
 
 const inventoryActions = {
   list: listInventory,

@@ -63,31 +63,31 @@ const columns = [
             hint: '',
         }
     },
-    {
-        name: "actions",
-        label: "Acciones",
-        options: {
-            hint: '',
-            filter: false,
-            sort: false,
-            download: false,
-            print: false,
-            searchable: false,
-            viewColumns: false,
-            customBodyRender: (value, tableMeta) => {
-                const id = tableMeta.rowData[0];
-                return (
-                    <LinkContainer to={`/admin/yearPlan/edit/${id}`}>
-                        <Tooltip title="Editar Plan Anual">
-                            <IconButton>
-                                <Edit />
-                            </IconButton>
-                        </Tooltip>
-                    </LinkContainer>
-                );
-            },
-        }
-    },
+    // {
+    //     name: "actions",
+    //     label: "Acciones",
+    //     options: {
+    //         hint: '',
+    //         filter: false,
+    //         sort: false,
+    //         download: false,
+    //         print: false,
+    //         searchable: false,
+    //         viewColumns: false,
+    //         customBodyRender: (value, tableMeta) => {
+    //             const id = tableMeta.rowData[0];
+    //             return (
+    //                 <LinkContainer to={`/admin/yearPlan/edit/${id}`}>
+    //                     <Tooltip title="Editar Plan Anual">
+    //                         <IconButton>
+    //                             <Edit />
+    //                         </IconButton>
+    //                     </Tooltip>
+    //                 </LinkContainer>
+    //             );
+    //         },
+    //     }
+    // },
 ];
 
 const options = {

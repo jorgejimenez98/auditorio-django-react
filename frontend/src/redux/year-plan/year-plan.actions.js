@@ -14,11 +14,19 @@ const listYearPlan = () => async (dispatch, getState) => {
     }
 };
 
-const createYearPlan = () => async (dispatch, getState) => {
-
+const createYearPlan = (values) => async (dispatch, getState) => {
+    try {
+        reduxFunc.request(dispatch, YearPlanActionTypes.CREATE.REQUEST);
+        const config = reduxFunc.config(getState)
+        const { data } = await axios.post(`${urls.yearPlan}createYearPlan/`, values, config);
+        reduxFunc.success(dispatch, YearPlanActionTypes.CREATE.SUCCESS, data);
+        console.log('create ear')
+    } catch (error) {
+        reduxFunc.error(dispatch, YearPlanActionTypes.CREATE.ERROR, error);
+    }
 }
-const updateYearPlan = () => async (dispatch, getState) => {
-
+const updateYearPlan = (su) => async (dispatch, getState) => {
+    
 }
 
 const deleteYearPlan = (rows) => async (dispatch, getState) => {

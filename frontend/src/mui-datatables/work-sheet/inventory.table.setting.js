@@ -1,47 +1,7 @@
-/* [
-    {
-        "author": "Juan Perez",
-        "yearPlan": {
-            "id": 2,
-            "year": 2021
-        },
-        "workOrder": {
-            "id": 1,
-            "noWO": 5
-        },
-        "dateTimeCreate": "2021-11-29 - 22:29:15",
-        "inventoryItems": [
-            {
-                "id": 1,
-                "sContCant": 1,
-                "sContTotal": 1,
-                "sSubCant": 1,
-                "sSubPrice": 1,
-                "sTeCant": 1,
-                "sTeTotal": 1,
-                "um": "asd",
-                "code": "asd",
-                "description": "asdasd",
-                "diff": 2,
-                "inventory": 1
-            },
-            {
-                "id": 2,
-                "sContCant": 1,
-                "sContTotal": 2,
-                "sSubCant": 1,
-                "sSubPrice": 2,
-                "sTeCant": 2,
-                "sTeTotal": 2,
-                "um": "asd",
-                "code": "asd",
-                "description": "asd",
-                "diff": 1,
-                "inventory": 1
-            }
-        ]
-    },
-] */
+
+import { Edit } from "@material-ui/icons";
+import { IconButton, Tooltip } from "@mui/material";
+import { LinkContainer } from "react-router-bootstrap";
 
 const columns = [
     // yearPlan entity subordinated codNIT codREEUP
@@ -128,19 +88,31 @@ const columns = [
             hint: '',
         }
     },
-    {
-        name: "actions",
-        label: "Acciones",
-        options: {
-            hint: '',
-            filter: false,
-            sort: false,
-            download: false,
-            print: false,
-            searchable: false,
-            viewColumns: false,
-        }
-    },
+    // {
+    //     name: "actions",
+    //     label: "Acciones",
+    //     options: {
+    //         hint: '',
+    //         filter: false,
+    //         sort: false,
+    //         download: false,
+    //         print: false,
+    //         searchable: false,
+    //         viewColumns: false,
+    //         customBodyRender: (value, tableMeta) => {
+    //             const id = tableMeta.rowData[0];
+    //             return (
+    //                 <LinkContainer to={`/admin/inventories/edit/${id}`}>
+    //                     <Tooltip title="Editar Plan Anual">
+    //                         <IconButton>
+    //                             <Edit />
+    //                         </IconButton>
+    //                     </Tooltip>
+    //                 </LinkContainer>
+    //             );
+    //         },
+    //     }
+    // },
 ];
 
 const options = {
