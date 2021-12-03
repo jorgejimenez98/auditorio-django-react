@@ -31,7 +31,7 @@ const deleteInventory = (id) => async (dispatch, getState) => {
   try {
     reduxFunc.request(dispatch, inventoryActionTypes.DELETE.REQUEST);
     const config = reduxFunc.config(getState)
-    const { data } = await axios.delete(`${urls.inventory}deleteInventory/${id}`, config);
+    const { data } = await axios.delete(`${urls.inventory}${id}/deleteInventory/`, config);
     reduxFunc.success(dispatch, inventoryActionTypes.DELETE.SUCCESS, data);
   } catch (error) {
     reduxFunc.error(dispatch, inventoryActionTypes.DELETE.ERROR, error);
