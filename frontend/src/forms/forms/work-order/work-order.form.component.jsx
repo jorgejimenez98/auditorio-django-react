@@ -1,11 +1,11 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import workOrderActions from "../../../redux/work-order/work-order.actions.js";
 
 import { Loader, Message } from "../../../containers";
 
 import * as Yup from "yup";
-import { FieldArray, Form, Formik } from "formik";
+import { FieldArray, Form, Formik, useField, useFormikContext } from "formik";
 
 import {
   Grid,
@@ -315,17 +315,17 @@ function step(step, values) {
               name="province"
               variant="standard"
             >
-              <MenuItem value={"Pinar del Río"}>Pinar del Río</MenuItem>
+              <MenuItem value={"Pinar_del_Río"}>Pinar del Río</MenuItem>
               <MenuItem value={"Artemisa"}>Artemisa</MenuItem>
-              <MenuItem value={"La Habana"}>La Habana</MenuItem>
+              <MenuItem value={"La_Habana"}>La Habana</MenuItem>
               <MenuItem value={"Mayabeque"}>Mayabeque</MenuItem>
               <MenuItem value={"Matanzas"}>Matanzas</MenuItem>
               <MenuItem value={"Cienfuegos"}>Cienfuegos</MenuItem>
-              <MenuItem value={"Villa Clara"}>Villa Clara</MenuItem>
-              <MenuItem value={"Sancti Spíritus"}>Sancti Spíritus</MenuItem>
-              <MenuItem value={"Ciego de Ávila"}>Ciego de Ávila</MenuItem>
+              <MenuItem value={"Villa_Clara"}>Villa Clara</MenuItem>
+              <MenuItem value={"Sancti_Spíritus"}>Sancti Spíritus</MenuItem>
+              <MenuItem value={"Ciego_de_Ávila"}>Ciego de Ávila</MenuItem>
               <MenuItem value={"Camagüey"}>Camagüey</MenuItem>
-              <MenuItem value={"Las Tunas"}>Las Tunas</MenuItem>
+              <MenuItem value={"Las_Tunas"}>Las Tunas</MenuItem>
               <MenuItem value={"Granma"}>Granma</MenuItem>
               <MenuItem value={"Holguín"}>Holguín</MenuItem>
               <MenuItem value={"Santiago de Cuba"}>Santiago de Cuba</MenuItem>
@@ -391,7 +391,7 @@ function step(step, values) {
               label="Plan anual"
               name="yearPlan"
               variant="standard"
-            /> 
+            />
           </Grid>
           <Grid item xs={4}>
             <CustomSelectComponent
@@ -411,3 +411,56 @@ function step(step, values) {
       );
   }
 }
+
+const municipalitiesList = {
+  Pinar_del_Río: [
+    'Consolación del Sur',
+    'Guane',
+    'La Palma',
+    'Los Palacios',
+    'Mantua',
+    'Minas de Matahambre',
+  ],
+  Artemisa: [],
+  La_Habana: [],
+  Mayabeque: [],
+  Matanzas: [],
+  Cienfuegos: [],
+  Villa_Clara: [],
+  Sancti_Spíritus: [],
+  Ciego_de_Ávila: [],
+  Camagüey: [],
+  Las_Tunas: [],
+  Granma: [],
+  Holguín: [],
+  Santiago_de_Cuba: [],
+  Guantánamo: [],
+}
+
+const MyField = (props) => {
+  const [list, setList] = useState([])
+  const {
+    values: { province },
+    touched,
+  } = useFormikContext();
+  const [field] = useField(props);
+
+  React.useEffect(() => {
+    if (
+      province !== '' &&
+      touched.province
+    ) {
+      setList(municipalitiesList.province);
+    }
+  }, [province, props.name, touched.province]);
+
+  return (
+    <>
+      <CustomSelectComponent {...props} {...field} >
+        {list.map((wo, idx) => (
+          <MenuItem key={idx} value={wo}>{`OT-${wo.noWO}`}</MenuItem>
+        ))}
+      </CustomSelectComponent>
+    </>
+  );
+};
