@@ -386,18 +386,12 @@ function step(step, values) {
       return (
         <Grid container spacing={2}>
           <Grid item xs={4}>
-            <CustomSelectComponent
+            <CustomTextInputComponent
               disabled
               label="Plan anual"
               name="yearPlan"
               variant="standard"
-            >
-              {steps.map((element, idx) => (
-                <MenuItem key={idx} value={2020 + idx}>
-                  {2020 + idx}
-                </MenuItem>
-              ))}
-            </CustomSelectComponent>
+            /> 
           </Grid>
           <Grid item xs={4}>
             <CustomSelectComponent

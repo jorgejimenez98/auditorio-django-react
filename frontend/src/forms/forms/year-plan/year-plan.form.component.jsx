@@ -27,6 +27,7 @@ import CustomDatePickerComponent from '../../custom-components/custom.datepicker
 import CustomCheckboxComponent from '../../custom-components/custom-checkbox.component';
 import { Link } from 'react-router-dom';
 import yearPlanActions from '../../../redux/year-plan/year-plan.actions';
+import workOrderActions from '../../../redux/work-order/work-order.actions';
 
 const steps = ['Seleccionar Plan Anual', 'Datos de auditoria(s)', 'Anexo'];
 
@@ -36,9 +37,6 @@ function YearPlanFormComponent({ data = null }) {
     const [tab, setTab] = useState('1');
     const today = new Date();
     const author = useSelector((state) => state.user.userLogin).userInfo.name;
-    const { success } = useSelector(state => state.yearPlan.create)
-    
-    console.log(success)
 
     const loadInitialValues = () => {
         if (data) {
@@ -105,8 +103,8 @@ function YearPlanFormComponent({ data = null }) {
         setActiveStep(activeStep + 1);
     }
 
-    const handleSubmit = (values) => {
-        dispatch(yearPlanActions.create({
+    async function handleSubmit(values) {
+        const { yearPlanId } = await dispatch(yearPlanActions.create({
             year: values.year,
             author: values.author,
             cantidadAudit: values.cantidadAudit,
@@ -117,8 +115,21 @@ function YearPlanFormComponent({ data = null }) {
             diasReservas: values.diasReservas,
             controlInterno: values.controlInterno,
         }))
-
-        console.log('handle submit')
+        for (let index = 0; index < values.cantidadAudit; index++) {
+            dispatch(workOrderActions.create({
+                noWO: index+1,
+                yearPlanId: yearPlanId,
+                author: values.author,
+                codNIT: values.codNIT[index],
+                codREEUP: values.codREEUP[index],
+                actionType: values.actionType[index],
+                unidadPres: values.unidadPres[index],
+                cantAuditores: values.cantAuditores[index],
+                diasHabiles: values.diasHabiles[index],
+                startDate: values.startDate[index],
+                directives: values.directives[index]
+            }))
+        }
 
     }
 

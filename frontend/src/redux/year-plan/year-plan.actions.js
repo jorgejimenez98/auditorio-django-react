@@ -20,13 +20,13 @@ const createYearPlan = (values) => async (dispatch, getState) => {
         const config = reduxFunc.config(getState)
         const { data } = await axios.post(`${urls.yearPlan}createYearPlan/`, values, config);
         reduxFunc.success(dispatch, YearPlanActionTypes.CREATE.SUCCESS, data);
-        console.log('create ear')
+        return data;
     } catch (error) {
         reduxFunc.error(dispatch, YearPlanActionTypes.CREATE.ERROR, error);
     }
 }
 const updateYearPlan = (su) => async (dispatch, getState) => {
-    
+
 }
 
 const deleteYearPlan = (rows) => async (dispatch, getState) => {
