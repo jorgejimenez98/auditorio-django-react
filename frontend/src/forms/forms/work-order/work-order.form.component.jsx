@@ -147,7 +147,7 @@ function WorkOrderFormComponent({ match, history }) {
               subordinated: yupOptions.workOrder.subordinated,
               address: yupOptions.workOrder.address,
               province: yupOptions.workOrder.province,
-              municipality: yupOptions.workOrder.municipality,
+              // municipality: yupOptions.workOrder.municipality,
               NAE: yupOptions.workOrder.NAE,
               cubanStateEntrpSys: yupOptions.workOrder.cubanStateEntrpSys,
             })}
@@ -328,16 +328,16 @@ function step(step, values) {
               <MenuItem value={"Las_Tunas"}>Las Tunas</MenuItem>
               <MenuItem value={"Granma"}>Granma</MenuItem>
               <MenuItem value={"Holguín"}>Holguín</MenuItem>
-              <MenuItem value={"Santiago de Cuba"}>Santiago de Cuba</MenuItem>
+              <MenuItem value={"Santiago_de_Cuba"}>Santiago de Cuba</MenuItem>
               <MenuItem value={"Guantánamo"}>Guantánamo</MenuItem>
             </CustomSelectComponent>
           </Grid>
           <Grid item xs={4}>
-            <CustomSelectComponent
+            <MyField
               label="Municipio"
               name="municipality"
               variant="standard"
-            ></CustomSelectComponent>
+            />
           </Grid>
           <Grid item xs={6}>
             <CustomTextInputComponent
@@ -420,21 +420,195 @@ const municipalitiesList = {
     'Los Palacios',
     'Mantua',
     'Minas de Matahambre',
+    'Pinar del Río',
+    'San Juan y Martínez',
+    'San Luis',
+    'Sandino',
+    'Viñales',
   ],
-  Artemisa: [],
-  La_Habana: [],
-  Mayabeque: [],
-  Matanzas: [],
-  Cienfuegos: [],
-  Villa_Clara: [],
-  Sancti_Spíritus: [],
-  Ciego_de_Ávila: [],
-  Camagüey: [],
-  Las_Tunas: [],
-  Granma: [],
-  Holguín: [],
-  Santiago_de_Cuba: [],
-  Guantánamo: [],
+  Artemisa: [
+    'Alquízar',
+    'Artemisa',
+    'Bahía Honda',
+    'Bauta',
+    'Caimito',
+    'Candelaria',
+    'Guanajay',
+    'Güira de Melena',
+    'Mariel',
+    'San Antonio de los Baños',
+    'San Cristóbal',
+  ],
+  La_Habana: [
+    'Arroyo Naranjo',
+    'Boyeros',
+    'Centro Habana',
+    'Cerro',
+    'Cotorro',
+    'Diez de Octubre',
+    'Guanabacoa',
+    'La Habana del Este',
+    'La Habana Vieja',
+    'La Lisa',
+    'Marianao',
+    'Playa',
+    'Plaza de la Revolución',
+    'Regla',
+    'San Miguel del Padrón',
+  ],
+  Mayabeque: [
+    'Batabanó',
+    'Bejucal',
+    'Güines',
+    'Jaruco',
+    'Madruga',
+    'Melena del Sur',
+    'Nueva Paz',
+    'Quivicán',
+    'San José de las Lajas',
+    'San Nicolás',
+    'Santa Cruz del Norte',
+  ],
+  Matanzas: [
+    'Calimete',
+    'Cárdenas',
+    'Ciénaga de Zapata',
+    'Colón',
+    'Jagüey Grande',
+    'Jovellanos',
+    'Limonar',
+    'Los Arabos',
+    'Martí',
+    'Matanzas',
+    'Pedro Betancourt',
+    'Perico',
+    'Unión de Reyes',
+  ],
+  Cienfuegos: [
+    'Abreus',
+    'Aguada de Pasajeros',
+    'Cienfuegos',
+    'Cruces',
+    'Cumanayagua',
+    'Lajas',
+    'Palmira',
+    'Rodas',
+  ],
+  Villa_Clara: [
+    'Caibarién',
+    'Camajuaní',
+    'Cifuentes',
+    'Corralillo',
+    'Encrucijada',
+    'Manicaragua',
+    'Placetas',
+    'Quemado de Güines',
+    'Ranchuelo',
+    'San Juan de los Remedios',
+    'Sagua la Grande',
+    'Santa Clara',
+    'Santo Domingo',
+  ],
+  Sancti_Spíritus: [
+    'Cabaiguán',
+    'Fomento',
+    'Jatibonico',
+    'La Sierpe',
+    'Sancti Spíritus',
+    'Taguasco',
+    'Trinidad',
+    'Yaguajay',
+  ],
+  Ciego_de_Ávila: [
+    'Baraguá',
+    'Bolivia',
+    'Chambas',
+    'Ciego de Ávila',
+    'Ciro Redondo',
+    'Florencia',
+    'Majagua',
+    'Morón',
+    'Primero de Enero',
+    'Venezuela',
+  ],
+  Camagüey: [
+    'Camagüey',
+    'Esmeralda',
+    'Florida',
+    'Guáimaro',
+    'Jimaguayú',
+    'Minas',
+    'Najasa',
+    'Nuevitas',
+    'Santa Cruz del Sur',
+    'Sibanicú',
+    'Sierra de Cubitas',
+    'Vertientes',
+  ],
+  Las_Tunas: [
+    'Amancio',
+    'Colombia',
+    'Jesús Menéndez',
+    'Jobabo',
+    'Las Tunas',
+    'Majibacoa',
+    'Manatí',
+    'Puerto Padre',
+  ],
+  Granma: [
+    'Bartolomé Masó',
+    'Bayamo',
+    'Buey Arriba',
+    'Campechuela',
+    'Cauto Cristo',
+    'Guisa',
+    'Jiguaní',
+    'Manzanillo',
+    'Media Luna',
+    'Niquero',
+    'Pilón',
+    'Río Cauto',
+    'Yara',
+  ],
+  Holguín: [
+    'Antilla',
+    'Báguanos',
+    'Banes',
+    'Cacocum',
+    'Calixto García',
+    'Cueto',
+    'Frank País',
+    'Gibara',
+    'Holguín',
+    'Mayarí',
+    'Moa',
+    'Rafael Freyre',
+    'Sagua de Tánamo',
+    'Urbano Noris',
+  ],
+  Santiago_de_Cuba: [
+    'Contramaestre',
+    'Guamá',
+    'Mella',
+    'Palma Soriano',
+    'San Luis',
+    'Santiago de Cuba',
+    'Segundo Frente',
+    'Songo-La Maya',
+    'Tercer Frente',
+  ],
+  Guantánamo: [
+    'Baracoa',
+    'Caimanera',
+    'El Salvador',
+    'Guantánamo',
+    'Imías',
+    'Maisí',
+    'Manuel Tames',
+    'Niceto Pérez',
+    'San Antonio del Sur',
+    'Yateras',
+  ],
 }
 
 const MyField = (props) => {
@@ -450,15 +624,63 @@ const MyField = (props) => {
       province !== '' &&
       touched.province
     ) {
-      setList(municipalitiesList.province);
+      switch (province) {
+        case "Pinar_del_Río":
+          setList(municipalitiesList.Pinar_del_Río)
+          break;
+        case "Artemisa":
+          setList(municipalitiesList.Artemisa)
+          break;
+        case "La_Habana":
+          setList(municipalitiesList.La_Habana)
+          break;
+        case "Mayabeque":
+          setList(municipalitiesList.Mayabeque)
+          break;
+        case "Matanzas":
+          setList(municipalitiesList.Matanzas)
+          break;
+        case "Cienfuegos":
+          setList(municipalitiesList.Cienfuegos)
+          break;
+        case "Villa_Clara":
+          setList(municipalitiesList.Villa_Clara)
+          break;
+        case "Sancti_Spíritus":
+          setList(municipalitiesList.Sancti_Spíritus)
+          break;
+        case "Ciego_de_Ávila":
+          setList(municipalitiesList.Ciego_de_Ávila)
+          break;
+        case "Camagüey":
+          setList(municipalitiesList.Camagüey)
+          break;
+        case "Las_Tunas":
+          setList(municipalitiesList.Las_Tunas)
+          break;
+        case "Granma":
+          setList(municipalitiesList.Granma)
+          break;
+        case "Holguín":
+          setList(municipalitiesList.Holguín)
+          break;
+        case "Santiago_de_Cuba":
+          setList(municipalitiesList.Santiago_de_Cuba)
+          break;
+        case "Guantánamo":
+          setList(municipalitiesList.Guantánamo)
+          break;
+        default:
+          break;
+      }
     }
   }, [province, props.name, touched.province]);
 
   return (
     <>
       <CustomSelectComponent {...props} {...field} >
-        {list.map((wo, idx) => (
-          <MenuItem key={idx} value={wo}>{`OT-${wo.noWO}`}</MenuItem>
+        {list.map((munic, idx) => (
+          <MenuItem key={idx} value={munic}>{munic}</MenuItem>
         ))}
       </CustomSelectComponent>
     </>

@@ -181,7 +181,7 @@ const showReducer = (state = INITIAL_STATE, action) => {
 const inventoryReducers = combineReducers({
   create: createReducer,
   update: updateReducer,
-  report: deleteReducer,
+  delete: deleteReducer,
   show: showReducer,
   list: listReducer,
 });

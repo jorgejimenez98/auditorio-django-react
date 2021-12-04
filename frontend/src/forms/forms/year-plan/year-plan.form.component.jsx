@@ -117,6 +117,7 @@ function YearPlanFormComponent({ data = null }) {
         }))
         for (let index = 0; index < values.cantidadAudit; index++) {
             dispatch(workOrderActions.create({
+                entity: values.entidades,
                 noWO: index+1,
                 yearPlanId: yearPlanId,
                 author: values.author,
@@ -247,9 +248,7 @@ function step(step, values, tab, changeTab) {
                                             name={`actionType.${idx}`}
                                             variant='standard'
                                         >
-                                            <MenuItem value={1}>1</MenuItem>
-                                            <MenuItem value={2}>2</MenuItem>
-                                            <MenuItem value={3}>3</MenuItem>
+                                            <MenuItem value={'Auditoria de cumplimiento'}>Auditoria de cumplimiento</MenuItem>
                                         </CustomSelectComponent>
                                     </Grid>
                                     <Grid item xs={6}>
