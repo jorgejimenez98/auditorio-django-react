@@ -14,13 +14,23 @@ const listWorkOrder = () => async (dispatch, getState) => {
   }
 };
 
-const createWorkOrder = () => async (dispatch, getState) => { };
+const createWorkOrder = (values) => async (dispatch, getState) => {
+  try {
+    reduxFunc.request(dispatch, WorkOrderActionTypes.CREATE.REQUEST);
+    const config = reduxFunc.config(getState)
+    const { data } = await axios.post(`${urls.workOrder}createWorkOrder/`, values, config);
+    reduxFunc.success(dispatch, WorkOrderActionTypes.CREATE.SUCCESS, data);
+  } catch (error) {
+    reduxFunc.error(dispatch, WorkOrderActionTypes.CREATE.ERROR, error);
+  }
+};
 
 const updateWorkOrder = (values, id) => async (dispatch, getState) => {
   try {
+    alert(JSON.stringify(values,null, 2))
     reduxFunc.request(dispatch, WorkOrderActionTypes.UPDATE.REQUEST);
     const config = reduxFunc.config(getState)
-    const { data } = await axios.put(`${urls.workOrder}${id}/updateWorOrder/`, config);
+    const { data } = await axios.put(`${urls.workOrder}${id}/updateWorOrder/`, values, config);
     reduxFunc.success(dispatch, WorkOrderActionTypes.UPDATE.SUCCESS, data);
   } catch (error) {
     reduxFunc.error(dispatch, WorkOrderActionTypes.UPDATE.ERROR, error);
