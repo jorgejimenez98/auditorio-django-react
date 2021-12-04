@@ -31,6 +31,7 @@ class WorkOrderViewSet(viewsets.ModelViewSet):
             # Update Work Order Params
             workOrder.author = data.get('author')
             workOrder.codNIT = data.get('codNIT')
+            workOrder.noWO = int(data.get('noWO'))
             workOrder.codREEUP = data.get('codREEUP')
             workOrder.actionType = data.get('actionType')
             workOrder.unidadPres = data.get('unidadPres')
