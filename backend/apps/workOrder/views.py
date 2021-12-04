@@ -33,6 +33,7 @@ class WorkOrderViewSet(viewsets.ModelViewSet):
             workOrder.codNIT = data.get('codNIT')
             workOrder.noWO = int(data.get('noWO'))
             workOrder.codREEUP = data.get('codREEUP')
+            workOrder.entity = data.get('entity')
             workOrder.actionType = data.get('actionType')
             workOrder.unidadPres = data.get('unidadPres')
             workOrder.cantAuditores = data.get('cantAuditores')
