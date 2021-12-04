@@ -15,6 +15,8 @@ import inventoryActions from "../../redux/work-sheet/inventory/inventory.actions
 import { Loader, Message } from "../../containers";
 import yearPlanActions from "../../redux/year-plan/year-plan.actions";
 import workOrderActions from "../../redux/work-order/work-order.actions";
+import { setSnackbar } from "../../redux/snackbar/snackbar.actions";
+import { inventoryActionTypes } from "../../redux/work-sheet/inventory/inventory.types";
 
 function WorkSheetComponent({ history }) {
   const dispatch = useDispatch();
@@ -27,6 +29,7 @@ function WorkSheetComponent({ history }) {
 
   // INVENTORY LIST SELECTOR
   const { loading: loadInv, list: listInv, error: errorInv } = useSelector((state) => state.inventory.list);
+  const { loading: loadInvDel, success: successInvDel, error: errorInvDel } = useSelector((state) => state.inventory.delete);
   const { loading: loadYear, list: listYear, error: errorYear } = useSelector((state) => state.yearPlan.list);
 
   useEffect(() => {
@@ -38,8 +41,13 @@ function WorkSheetComponent({ history }) {
       dispatch(inventoryActions.list());
       dispatch(yearPlanActions.list());
       dispatch(workOrderActions.list());
+      if (successInvDel) {
+        const message = "Inventario Satisfactoriamente";
+        dispatch(setSnackbar(true, "success", message));
+        dispatch({ type: inventoryActionTypes.DELETE.RESET });
+      }
     }
-  }, [history, userInfo, dispatch]);
+  }, [history, userInfo, dispatch, successInvDel]);
 
   const [type, setType] = useState("inventory");
 
@@ -52,7 +60,7 @@ function WorkSheetComponent({ history }) {
   const handleChangeWork = (event) => {
     const WO = event.target.value;
     setWorkOrder(event.target.value);
-
+    
     listInv.forEach((inv, idx) => {
       if (inv.workOrder.id === WO.id) {
         setlist(inv.inventoryItems);
@@ -61,8 +69,6 @@ function WorkSheetComponent({ history }) {
       };
     });
   }
-
-  console.log(inv)
 
   const content = () => {
     switch (type) {
@@ -82,6 +88,8 @@ function WorkSheetComponent({ history }) {
 
   return (
     <React.Fragment>
+      {loadInvDel && <Loader />}
+      {errorInvDel && <Message type="error" message={errorInvDel} />}
       {loadInv ? (
         <Loader />
       ) : errorInv ? (
