@@ -44,10 +44,11 @@ class WorkOrderSerializer(serializers.ModelSerializer):
 class WorkOrderDetailsSerializer(serializers.ModelSerializer):
     yearPlan = serializers.SerializerMethodField(read_only=True)
     staff = serializers.SerializerMethodField(read_only=True)
+    yearPlanId = serializers.SerializerMethodField(read_only=True)
 
     class Meta:
         model = WorkOrder
-        fields = ['id', 'author', 'yearPlan', 'noWO',
+        fields = ['id', 'author', 'yearPlan', 'noWO', 'yearPlanId',
                   'criteria', 'system', 'auditType', 'staff', 'entity',
                   'subordinated', 'address', 'province', 'municipality', 'NAE', 'FORG', 'cubanStateEntrpSys', 'isPerfecting',
                   'merchantSociety', 'codNIT', 'codREEUP', 'actionType', 'unidadPress', 'cantAuditores', 'diasHabiles', 'startDate', 'endDate']
@@ -63,3 +64,6 @@ class WorkOrderDetailsSerializer(serializers.ModelSerializer):
             obj.auditor1,
             obj.auditor2
         ]
+
+    def get_yearPlanId(self, obj):
+        return obj.yearPlan.id
